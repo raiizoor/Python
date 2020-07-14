@@ -28,7 +28,7 @@ jobs:
  
     - name: Install dependencies
       run: |
-        mingw32-make install
+        make install
     - name: Run Tests
       run: |
-        mingw32-make test
+        make test
