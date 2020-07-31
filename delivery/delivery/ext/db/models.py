@@ -6,8 +6,9 @@ from delivery.ext.db import db
 class User(db.Model):
     __tablename__ = "user"
     id = db.Column("id", db.Integer, primary_key=True)
+    name = db.Column("name", db.Unicode)
     email = db.Column("email", db.Unicode, unique=True)
-    passwd = db.Column("passwd", db.Unicode)
+    password = db.Column("password", db.Unicode)
     admin = db.Column("admin", db.Boolean)
 
     def __repr__(self):
@@ -18,20 +19,26 @@ class Category(db.Model):
     __tablename__ = "category"
     id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.Unicode, unique=True)
+    on_menu = db.Column("on_menu", db.Boolean)
 
+    def __repr__(self):
+        return self.name
 
 class Store(db.Model):
     __tablename__ = "store"
     id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column("name", db.Unicode)
+    name_store = db.Column("name_store", db.Unicode)
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
     category_id = db.Column(
         "category_id", db.Integer, db.ForeignKey("category.id")
-    )
+        )
+    active = db.Column("active", db.Boolean)
 
     user = db.relationship("User", foreign_keys=user_id)
     category = db.relationship("Category", foreign_keys=category_id)
 
+    def __repr__(self):
+        return self.name_store
 
 class Items(db.Model):
     __tablename__ = "items"

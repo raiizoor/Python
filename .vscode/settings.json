@@ -1,5 +1,5 @@
 {
-    "python.pythonPath": "C:\\Users\\meteus\\Documents\\GitHub\\Python\\delivery\\.venv\\",
+    "python.pythonPath": ".venv\\Scripts\\python.exe",
     "python.linting.pylintEnabled": true,
     "python.linting.enabled": false
 }
