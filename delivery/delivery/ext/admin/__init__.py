@@ -4,7 +4,7 @@ from delivery.ext.db import db
 from delivery.ext.db.models import Category
 from delivery.ext.db.models import Store
 from delivery.ext.db.models import Items
-
+from delivery.ext.db.models import Order
 
 
 admin = Admin()
@@ -17,3 +17,4 @@ def init_app(app):
     admin.add_view(ModelView(Category, db.session))
     admin.add_view(ModelView(Store, db.session))
     admin.add_view(ModelView(Items, db.session))
+    admin.add_view(ModelView(Order, db.session))

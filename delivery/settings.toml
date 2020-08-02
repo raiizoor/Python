@@ -1,0 +1,34 @@
+[default]
+DEBUG = false
+FLASK_ADMIN_SWATCH ="united"
+EXTENSIONS = [
+    "delivery.ext.db:init_app",
+    "delivery.ext.login:init_app",
+    "delivery.ext.admin:init_app",
+    "delivery.ext.migrate:init_app",
+    "delivery.ext.cli:init_app",
+    "delivery.ext.site:init_app",
+]
+
+[development]
+DEBUG = true
+SQLALCHEMY_DATABASE_URI ='sqlite:///delivery.db'
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+DEBUG_TB_TEMPLATE_EDITOR_ENABLED = true
+DEBUG_TB_PROFILER_ENABLED = true
+DEBUG_TB_INTERCEPT_REDIRECTS = false
+EXTENSIONS = [
+    "delivery.ext.db:init_app",
+    "delivery.ext.login:init_app",
+    "delivery.ext.admin:init_app",
+    "delivery.ext.migrate:init_app",
+    "delivery.ext.cli:init_app",
+    "delivery.ext.toolbar:init_app",
+    "delivery.ext.site:init_app",
+]
+
+
+
+[production]
+SQLALCHEMY_TRACK_MODIFICATIONS = false
+SQLALCHEMY_DATABASE_URI = "mysql://..."
