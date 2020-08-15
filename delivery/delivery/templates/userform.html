@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 
 {% block top %}
+
+<link rel="renderform" type="text/css" href="userform.css">
+
 <section class="hero is-primary">
 <div class="hero-body">
     <div class="container">
@@ -9,16 +12,25 @@
 </div>
 </section>
 {% endblock %}
-<form action="/receiver" method="post"enctype="multipart/form-data">
-    {{form.email.label}}<br>
-    {{form.email(size=20)}}
-
-    {{form.password.label}}
-    {{form.password(size=20)}}
-    <input type="submit" value="">
-</form>
-    
 
 {% block main %}
-<form action="form"></form>
+<form action='{{url_for("site.signup")}}' method='post' enctype='multipart/form-data'>
+    {{form.csrf_token}}
+   
+    {{form.name.label}}<br>
+    {{form.name(size=20)}}<br>
+
+    {{form.email.label}}<br>
+    {{form.email(size=20)}}<br>
+    
+    {{form.password.label}}<br>
+    {{form.password(size=20)}}<br>
+    
+    {{form.foto.label}}<br>
+    {{form.foto}}<br>
+
+    <input type="submit" value="Cadastrar">
+</form>
 {% endblock %}
+
+

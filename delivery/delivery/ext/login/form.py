@@ -4,6 +4,7 @@ from flask_wtf.file import FileField
 
 
 class UserForm(FlaskForm):
+    name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
     email = wtf.StringField(
         "Email", [wtf.validators.DataRequired(), wtf.validators.Email()]
     )
