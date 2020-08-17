@@ -1,6 +1,6 @@
 from flask import Blueprint, current_app, render_template, redirect, request
 from delivery.ext.login.form import UserForm
-from delivery.ext.login.controller import create_user
+from delivery.ext.login.controller import create_user, save_user_foto
 
 bp = Blueprint("site", __name__)
 
@@ -22,7 +22,12 @@ def signup():
             email=form.email.data,
             password=form.password.data,
         )
-        
+        foto = request.files.get('foto')
+        if foto:
+            save_user_foto(
+                    foto.filename,
+                    foto
+                )
         #forçar login
         return redirect("/")
 
