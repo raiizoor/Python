@@ -3,11 +3,6 @@ from delivery.ext.db.models import User
 from delivery.ext.login.controller import create_user
 from delivery.ext.db import db
 
-#TODO: mover para controller
-def list_users():
-    users = models.User.query.all()
-    click.echo(f"lista de usuarios {users}")
-    
 
 @click.option("--name", "-s")
 @click.option("--email", "-e")

@@ -1,5 +1,6 @@
 from delivery.ext.db import models #noqa
-from delivery.ext.login.commands import list_users, add_user
+from delivery.ext.login.commands import add_user
+from delivery.ext.login.controller import list_users 
 
 from delivery.ext.db import db
 from delivery.ext.login.admin import UserAdmin

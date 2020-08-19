@@ -5,3 +5,4 @@ flask-admin
 flask-wtf
 dynaconf
 email_validator
+flask-login

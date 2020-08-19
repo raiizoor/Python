@@ -1,4 +1,4 @@
-import os
+import os, click
 from werkzeug.security import generate_password_hash
 
 from werkzeug.utils import secure_filename
@@ -6,11 +6,16 @@ from werkzeug.utils import secure_filename
 from flask import current_app as app
 
 from delivery.ext.db.models import User
-from delivery.ext.db import db
+from delivery.ext.db import db, models
+
 
 
 ALG = "pbkdf2:sha256"
 
+
+def list_users():
+    users = models.User.query.all()
+    click.echo(f"lista de usuarios {users}")
 
 def create_user(name: str, email: str, password: str, admin:bool = False) -> User:
     user = User(
