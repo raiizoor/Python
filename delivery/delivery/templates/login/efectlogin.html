@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block top %}
+
+<section class="hero is-primary">
+<div class="hero-body">
+    <div class="container">
+        <h1>Cadastra-se no...</h1>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block main %}
+<form action='{{url_for("site.login")}}' method='post' enctype='multipart/form-data'>
+    {{form.csrf_token}}
+   
+    {{form.email.label}}<br>
+    {{form.email(size=20)}}<br>
+
+    {{form.password.label}}<br>
+    {{form.password(size=20)}}<br><br>
+    
+
+
+    <input type="submit" value="Conectar">
+    <input type="submit" value="Cancelar">
+</form>
+{% endblock %}
+
+
