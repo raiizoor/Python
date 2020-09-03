@@ -1,6 +1,12 @@
+from delivery.ext.db import db
 from delivery.ext.db.models import User
+from werkzeug.security import generate_password_hash, check_password_hash
 
 
-@login_manager.user_loader
-def load_user(user_id):
-    return User.get(user_id)
+def __init__(self, name, email, password):
+    self.name = name
+    self.email = email
+    self.password = generate_password_hash(password)
+
+def verify_password(self, pwd):
+    return check_password_hash(self.password, pwd)
