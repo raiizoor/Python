@@ -1,13 +1,12 @@
 # -*- encoding: utf-8 -*-
 
-from delivery.ext.db import db
+from delivery.ext.db import db, init_app, login_manager
 from flask_login import UserMixin
-from delivery.ext.login.logar import login_manager
-
+from werkzeug.security import check_password_hash
 
 @login_manager.user_loader
 def get_user(user_id):
-    return User.query.filter_by(id=user_id).first()
+    return User.query.get(user_id)
 
 class User(db.Model, UserMixin):
     __tablename__ = "user"
@@ -17,9 +16,21 @@ class User(db.Model, UserMixin):
     password = db.Column("password", db.Unicode)
     admin = db.Column("admin", db.Boolean)
 
+    def get_id(self):
+        return str(self.id)
+
+    def auth(self, email: str, password: str) -> bool:
+        user = self.query.filter_by(email=email).first()
+        if not user:
+            return False
+        if not check_password_hash(user.password, password):
+            return False
+        return user
+        
     def __repr__(self):
         return self.email
-    
+
+
 
 class Category(db.Model):
     __tablename__ = "category"
@@ -106,3 +117,4 @@ class Address(db.Model):
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
 
     user = db.relationship("User", foreign_keys=user_id)
+

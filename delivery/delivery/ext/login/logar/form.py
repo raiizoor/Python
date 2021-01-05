@@ -8,3 +8,8 @@ class LoginForm(FlaskForm):
         "Email", [wtf.validators.DataRequired(), wtf.validators.Email()]
     )
     password = wtf.PasswordField("Senha", [wtf.validators.DataRequired()] )
+
+  #  confirmation = BooleanField(
+#        "Permanecer Conectado",
+ #       render_kw={"class_": "uk-checkbox"},
+#    )

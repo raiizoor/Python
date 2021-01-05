@@ -14,21 +14,45 @@
 
 {% block main %}
 <form action='{{url_for("site.signup")}}' method='post' enctype='multipart/form-data'>
+<div class="col-md-3 col-md-offset-4">
     {{form.csrf_token}}
-   
-    {{form.name.label}}<br>
-    {{form.name(size=20)}}<br>
-
-    {{form.email.label}}<br>
-    {{form.email(size=20)}}<br>
     
-    {{form.password.label}}<br>
-    {{form.password(size=20)}}<br>
-    
-    {{form.foto.label}}<br>
-    {{form.foto}}<br>
+    <div class="field">
+        <label class="label">Name</label>
+        <div class="control">
+            {{form.name(class="form-control", placeholder="Name")}}
+        </div>
+    </div>
 
-    <input type="submit" value="Cadastrar">
+    <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+            {{form.email(class="input is-success", type="email", placeholder="Email")}}
+            <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+            </span>
+            {% if form.errors.email %}
+                {% for e in form.errors.email %}
+                    <p class="help is-danger">{{ e }}</p>
+                {% endfor %}
+            {% endif %}    
+        </div>
+    </div>
+
+    
+    <div class="field">
+        <label class="label">Senha</label>
+        <div class="control">
+            {{form.password(class="form-control", placeholder="Senha")}}       
+        </div>
+    </div>
+
+    <label class="label">Foto</label>         
+    {{form.foto(class="btn btn-link")}}
+    <div class="control">
+        <input class="btn btn-info" type="submit" value="Cadastrar">
+    </div>     
+</div>
 </form>
 {% endblock %}
 

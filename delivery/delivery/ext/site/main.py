@@ -1,5 +1,5 @@
-from flask import Blueprint, current_app, render_template, redirect, request, url_for
-from flask_login import login_user
+from flask import Blueprint, current_app, render_template, redirect, request, url_for, flash
+from flask_login import login_user, current_user
 from delivery.ext.db import db
 from delivery.ext.db.models import User
 from delivery.ext.login.form import UserForm
@@ -7,19 +7,23 @@ from delivery.ext.login.logar.form import LoginForm
 from delivery.ext.login.controller import create_user, save_user_foto
 
 
-bp = Blueprint("site", __name__)
+main = Blueprint("site", __name__)
 
-#login_manager = LoginManager(bp)
+@main.before_request
+def before_request():
+    if current_user.is_authenticated:
+        if request.endpoint == "auth.login":
+            return redirect(url_for("dashboard.page"))
 
-@bp.route("/")
+@main.route("/")
 def index():
     return render_template("index.html")
 
-@bp.route("/sobre")
+@main.route("/sobre")
 def about():
     return render_template("about.html")
 
-@bp.route("/cadastro", methods=["GET", "POST"])
+@main.route("/cadastro", methods=["GET", "POST"])
 def signup():
     form = UserForm()
 
@@ -40,27 +44,28 @@ def signup():
 
     return render_template("login/userform.html", form=form)
 
-@bp.route("/entrar", methods=['GET', 'POST'])
+
+@main.route("/entrar", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
 
-        if form.validate_on_submit():
-            
-            login_user(user)
+    if form.validate_on_submit():
+        user = User()
+        auth = user.auth(form.email.data, form.password.data)
 
-            next = flask.request.args.get('email', 'password')
+        if not auth:
+            flash("suas credênciais estão incorretas!", "danger")
+            return redirect(url_for('.login'))
 
-            if not is_safe_url(next):
-                return flask.abort(400)
+        return redirect(url_for(".logado"))
 
-            return redirect(next or url_for('.logado'))
-    
     return render_template('login/efectlogin.html', form=form)
 
-@bp.route("/logado")
+
+@main.route("/logado")
 def logado():
     return render_template("login.html")
 
-@bp.route("/restaurantes")
+@main.route("/restaurantes")
 def restaurants():
     return render_template("restaurants.html")
