@@ -7,7 +7,7 @@ EXTENSIONS = [
     "delivery.ext.admin:init_app",
     "delivery.ext.migrate:init_app",
     "delivery.ext.cli:init_app",
-    "delivery.ext.site:init_app",  
+    "delivery.ext.views:init_app",  
 ]
 UPLOAD_FOLDER = "uploads"
 
@@ -27,7 +27,7 @@ EXTENSIONS = [
     "delivery.ext.migrate:init_app",
     "delivery.ext.cli:init_app",
     "delivery.ext.toolbar:init_app",
-    "delivery.ext.site:init_app",
+    "delivery.ext.views:init_app",
 ]
 
 

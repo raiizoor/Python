@@ -7,21 +7,13 @@ from delivery.ext.login.logar.form import LoginForm
 from delivery.ext.login.controller import create_user, save_user_foto
 
 
-main = Blueprint("site", __name__)
+main = Blueprint("main", __name__)
 
 @main.before_request
 def before_request():
     if current_user.is_authenticated:
         if request.endpoint == "auth.login":
             return redirect(url_for("dashboard.page"))
-
-@main.route("/")
-def index():
-    return render_template("index.html")
-
-@main.route("/sobre")
-def about():
-    return render_template("about.html")
 
 @main.route("/cadastro", methods=["GET", "POST"])
 def signup():

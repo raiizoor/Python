@@ -33,11 +33,11 @@
             Home
           </a>
     
-          <a class="navbar-item" href="{{ url_for('site.restaurants') }}">
+          <a class="navbar-item" href="{{ url_for('page.restaurants') }}">
             Restaurantes
           </a>
 
-          <a class="navbar-item" href="{{ url_for('site.about') }}">
+          <a class="navbar-item" href="{{ url_for('page.about') }}">
             Sobre
           </a>
     
@@ -67,10 +67,10 @@
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary" href="{{url_for('site.signup')}}">
+              <a class="button is-primary" href="{{url_for('main.signup')}}">
                 <strong>Sign up</strong>
               </a>
-              <a class="button is-light" href="{{url_for('site.login')}}">
+              <a class="button is-light" href="{{url_for('main.login')}}">
                 Log in
               </a>
             </div>
