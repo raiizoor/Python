@@ -1,5 +1,6 @@
 from flask import Blueprint, current_app, render_template, redirect, request, url_for, flash, send_from_directory
 from flask_login import login_user, current_user
+from flask_login.utils import login_required, logout_user
 from delivery.ext.db import db
 from delivery.ext.db.models import User
 from delivery.ext.login.form import UserForm
@@ -43,6 +44,7 @@ def signup():
 @main.route("/entrar", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
+
     if form.validate_on_submit():
         user = User()
         auth = user.auth(form.email.data, form.password.data)
@@ -51,14 +53,15 @@ def login():
             flash("suas credênciais estão incorretas!", "danger")
             return redirect(url_for('.login'))
 
-        return redirect(url_for(".logado"))
+        return render_template("login.html")
 
     return render_template('login/efectlogin.html', form=form)
 
-
-@main.route("/logado")
-def logado():
-    return render_template("login.html")
+@main.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("page.index"))
 
 @main.route("/restaurantes")
 def restaurants():
