@@ -1,4 +1,4 @@
-from flask import Blueprint, current_app, render_template, redirect, request, url_for, flash
+from flask import Blueprint, current_app, render_template, redirect, request, url_for, flash, send_from_directory
 from flask_login import login_user, current_user
 from delivery.ext.db import db
 from delivery.ext.db.models import User
@@ -9,6 +9,10 @@ from delivery.ext.login.controller import create_user, save_user_foto
 
 main = Blueprint("main", __name__)
 
+@main.route('/uploads/<nome_arquivo>')
+def imagem(nome_arquivo):
+    return send_from_directory('../../uploads', nome_arquivo)
+
 @main.before_request
 def before_request():
     if current_user.is_authenticated:
@@ -18,7 +22,6 @@ def before_request():
 @main.route("/cadastro", methods=["GET", "POST"])
 def signup():
     form = UserForm()
-
     if form.validate_on_submit():
         create_user(
             name=form.name.data,
@@ -40,7 +43,6 @@ def signup():
 @main.route("/entrar", methods=['GET', 'POST'])
 def login():
     form = LoginForm()
-
     if form.validate_on_submit():
         user = User()
         auth = user.auth(form.email.data, form.password.data)
