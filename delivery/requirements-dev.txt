@@ -8,3 +8,5 @@ isort
 pytest
 pytest-flask
 pytest-cov
+opencv-python
+numpy
