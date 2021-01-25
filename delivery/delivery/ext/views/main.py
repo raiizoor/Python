@@ -6,13 +6,14 @@ from delivery.ext.db.models import User
 from delivery.ext.login.form import UserForm
 from delivery.ext.login.logar.form import LoginForm
 from delivery.ext.login.controller import create_user, save_user_foto
+from flask import current_app as app
 
 
 main = Blueprint("main", __name__)
 
 @main.route('/uploads/<nome_arquivo>')
 def imagem(nome_arquivo):
-    return send_from_directory('../../uploads', nome_arquivo)
+    return send_from_directory(app.config["UPLOAD_FOLDER"], nome_arquivo)
 
 @main.before_request
 def before_request():
@@ -36,7 +37,7 @@ def signup():
                     foto
                 )
         #forçar login
-        return redirect(url_for('.logado'))
+        return render_template("login.html")
 
     return render_template("login/userform.html", form=form)
 
