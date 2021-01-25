@@ -30,7 +30,18 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return self.email
 
+class Items(db.Model):
+    __tablename__ = "items"
+    id = db.Column("id", db.Integer, primary_key=True)
+    name = db.Column("name", db.Unicode)
+    image = db.Column("image", db.Unicode)
+    price = db.Column("price", db.Numeric)
+    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
+    available = db.Column("available", db.Boolean)
 
+    store = db.relationship("Store", foreign_keys=store_id)
+
+###########################################################
 
 class Category(db.Model):
     __tablename__ = "category"
@@ -56,18 +67,6 @@ class Store(db.Model):
 
     def __repr__(self):
         return self.name_store
-
-class Items(db.Model):
-    __tablename__ = "items"
-    id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column("name", db.Unicode)
-    image = db.Column("image", db.Unicode)
-    price = db.Column("price", db.Numeric)
-    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
-    available = db.Column("available", db.Boolean)
-
-    store = db.relationship("Store", foreign_keys=store_id)
-
 
 class Order(db.Model):
     __tablename__ = "order"
