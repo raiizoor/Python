@@ -94,6 +94,15 @@ class OrderItems(db.Model):
     order = db.relationship("Order", foreign_keys=order_id)
     items = db.relationship("Items", foreign_keys=items_id)
 
+class Address(db.Model):
+    __tablename__ = "address"
+    id = db.Column("id", db.Integer, primary_key=True)
+    zip = db.Column("zip", db.Unicode)
+    country = db.Column("country", db.Unicode)
+    address = db.Column("address", db.Unicode)
+    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
+
+    user = db.relationship("User", foreign_keys=user_id)
 
 class Checkout(db.Model):
     __tablename__ = "checkout"
@@ -105,15 +114,3 @@ class Checkout(db.Model):
     order_id = db.Column("order_id", db.Integer, db.ForeignKey("order.id"))
 
     order = db.relationship("Order", foreign_keys=order_id)
-
-
-class Address(db.Model):
-    __tablename__ = "address"
-    id = db.Column("id", db.Integer, primary_key=True)
-    zip = db.Column("zip", db.Unicode)
-    country = db.Column("country", db.Unicode)
-    address = db.Column("address", db.Unicode)
-    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
-
-    user = db.relationship("User", foreign_keys=user_id)
-
