@@ -48,7 +48,15 @@
     </div>
 
     <label class="label">Foto</label>         
-    {{form.foto(class="btn btn-link")}}
+    <figure class="thumb col-md-4">
+        <img class="img-responsive" src="{{ url_for('main.imagem', nome_arquivo='capa_padrao.jpg') }}">
+        <figcaption>
+          <label class="fileContainer">
+            {{form.foto(class="btn btn-link")}}
+          </label>
+        </figcaption>
+      </figure>
+
     <div class="control">
         <input class="btn btn-info" type="submit" value="Cadastrar">
     </div>     
