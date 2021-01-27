@@ -1,6 +1,6 @@
 import click
-from delivery.ext.db.models import User
-from delivery.ext.login.controller import create_user
+from delivery.ext.db.models import User, Items
+from delivery.ext.login.controller import create_user,create_item
 from delivery.ext.db import db
 
 
@@ -19,3 +19,13 @@ def add_user(name, email, password, admin):
     )
 
     click.echo(f"Usuario {email} criado com sucesso!")
+
+def add_item(name, image, price, store_id):
+    create_item(
+        name=name,
+        image=image,
+        price=price,
+        store_id=store_id
+    )
+
+    click.echo(f"Usuario {name} criado com sucesso!")

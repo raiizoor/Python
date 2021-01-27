@@ -5,7 +5,7 @@ import numpy as np
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
-from delivery.ext.db.models import User
+from delivery.ext.db.models import User, Items
 from delivery.ext.db import db, models
 
 
@@ -20,7 +20,7 @@ def list_users():
 def create_user(name: str, email: str, password: str, admin:bool = False) -> User:
     user = User(
         name = name,
-        email=email,
+        email = email,
         password = generate_password_hash(password, ALG),
         admin = admin
     )
@@ -28,6 +28,18 @@ def create_user(name: str, email: str, password: str, admin:bool = False) -> Use
     #TODO: Tratar exception caso o usuario já exista
     db.session.commit()
     return user
+
+def create_item(name: str, image: str, price: int, store_id:int) -> Items:
+    items = Items(
+        name = name,
+        image = image,
+        price = price,
+        store_id = store_id
+    )
+    db.session.add(items)
+    #TODO: Tratar exception caso o item já exista
+    db.session.commit()
+    return items
 
 def save_user_foto(filename, filestore):
     filename = os.path.join(
