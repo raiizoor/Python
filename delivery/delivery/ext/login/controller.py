@@ -5,7 +5,7 @@ import numpy as np
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
-from delivery.ext.db.models import User, Items
+from delivery.ext.db.models import User, Items, Store
 from delivery.ext.db import db, models
 
 
@@ -29,12 +29,11 @@ def create_user(name: str, email: str, password: str, admin:bool = False) -> Use
     db.session.commit()
     return user
 
-def create_item(name: str, image: str, price: int, store_id:int) -> Items:
+def create_item(name: str, image: str, price: int) -> Items:
     items = Items(
         name = name,
         image = image,
-        price = price,
-        store_id = store_id
+        price = price
     )
     db.session.add(items)
     #TODO: Tratar exception caso o item já exista

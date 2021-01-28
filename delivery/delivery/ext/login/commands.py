@@ -20,12 +20,11 @@ def add_user(name, email, password, admin):
 
     click.echo(f"Usuario {email} criado com sucesso!")
 
-def add_item(name, image, price, store_id):
+def add_item(name, image, price):
     create_item(
         name=name,
         image=image,
         price=price,
-        store_id=store_id
     )
 
     click.echo(f"Usuario {name} criado com sucesso!")

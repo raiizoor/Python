@@ -39,7 +39,6 @@ class Items(db.Model):
     store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
     manysold = db.Column("manysold", db.Integer, default=0)
     dateadded = db.Column("dateadded",db.DateTime,default=db.func.current_timestamp())
-
     store = db.relationship("Store", foreign_keys=store_id)
 
 ###########################################################
@@ -56,12 +55,10 @@ class Category(db.Model):
 class Store(db.Model):
     __tablename__ = "store"
     id = db.Column("id", db.Integer, primary_key=True)
-    name_store = db.Column("name_store", db.Unicode)
+    name_store = db.Column("name_store", db.String, unique=True)
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
-    category_id = db.Column(
-        "category_id", db.Integer, db.ForeignKey("category.id")
-        )
-    active = db.Column("active", db.Boolean)
+    category_id = db.Column("category_id", db.Integer, db.ForeignKey("category.id"))
+    active = db.Column("active", db.Boolean, default=False)
 
     user = db.relationship("User", foreign_keys=user_id)
     category = db.relationship("Category", foreign_keys=category_id)
@@ -76,10 +73,8 @@ class Order(db.Model):
     completed = db.Column("completed", db.Boolean)
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
     store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
-    address_id = db.Column(
-        "address_id", db.Integer, db.ForeignKey("address.id")
-    )
-
+    address_id = db.Column("address_id", db.Integer, db.ForeignKey("address.id") )
+    
     user = db.relationship("User", foreign_keys=user_id)
     store = db.relationship("Store", foreign_keys=store_id)
     address = db.relationship("Address", foreign_keys=address_id)
