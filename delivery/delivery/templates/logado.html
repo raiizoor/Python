@@ -5,6 +5,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Hello Bulma!</title>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     {% endblock head %}
 
@@ -30,23 +32,19 @@
           <a class="navbar-item" href="/">
             Home
           </a>
-    
-          <a class="navbar-item" href="{{ url_for('page.restaurants') }}">
-            Restaurantes
-          </a>
-
+          
           <a class="navbar-item" href="{{ url_for('page.about') }}">
             Sobre
           </a>
     
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
-              More
+              Cadastros
             </a>
     
             <div class="navbar-dropdown">
-              <a class="navbar-item">
-                Pizza
+              <a class="navbar-item" href="{{ url_for('cate.register') }}">
+                Categoria
               </a>
               <a class="navbar-item">
                 Pastel
@@ -97,5 +95,9 @@
     </div>
   </footer>
   {% endblock footer %}
+
+  <script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+
   </body>
 </html>

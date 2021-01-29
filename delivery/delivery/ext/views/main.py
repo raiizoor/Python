@@ -3,8 +3,7 @@ from flask_login import login_user, current_user
 from flask_login.utils import login_required, logout_user
 from delivery.ext.db import db
 from delivery.ext.db.models import User
-from delivery.ext.login.form import UserForm
-from delivery.ext.login.logar.form import LoginForm
+from delivery.ext.login.form import UserForm, LoginForm
 from delivery.ext.login.controller import create_user, save_user_foto
 from flask import current_app as app
 
