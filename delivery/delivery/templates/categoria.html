@@ -1,0 +1,65 @@
+{% extends "logado.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+<div class="hero-body">
+    <div class="container">
+        <h1>Cadastro de Categoria<h1>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block main %}
+<form action='{{url_for("cate.register")}}' method='post' enctype='multipart/form-data'>
+<div class="col-md-3 col-md-offset-4">
+    
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for message in messages %}
+            <li class="alert alert-warning">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %}  
+
+    {{cate.csrf_token}}
+
+    <div class="form-group">
+        <label>Nome: </label>
+        {{ cate.name(class="form-control", placeholder="Nome") }}
+        {% if cate.errors.password %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for e in cate.errors.password %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="field">
+        <div class="control">
+          <label class="checkbox">
+            {{cate.onmenu}}
+            On-menu
+          </label>
+        </div>
+    </div>
+
+
+    <div class="control">
+        <input class="btn btn-info" type="submit" value="Cadastrar">
+    </div>
+
+
+</div>
+</form>    
+{% endblock %}
+
+
+

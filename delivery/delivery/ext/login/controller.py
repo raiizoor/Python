@@ -2,10 +2,16 @@ import os, click
 import cv2
 import numpy as np
 
+from flask import flash, redirect, url_for
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
+<<<<<<< HEAD
 from delivery.ext.db.models import User, Items, Store
+=======
+from delivery.ext.db.models import User, Category
+from delivery.ext.db.models import User, Items
+>>>>>>> 5244b5f7d648bf51311bf3090c90691484c6c5c8
 from delivery.ext.db import db, models
 
 
@@ -17,6 +23,15 @@ def list_users():
     users = models.User.query.all()
     click.echo(f"lista de usuarios {users}")
 
+def create_category(name: str, onmenu:bool = False) -> Category:
+    category = Category(
+        name = name,
+        onmenu = onmenu
+    )
+    db.session.add(category)
+    db.session.commit()
+    return category
+
 def create_user(name: str, email: str, password: str, admin:bool = False) -> User:
     user = User(
         name = name,
@@ -25,7 +40,6 @@ def create_user(name: str, email: str, password: str, admin:bool = False) -> Use
         admin = admin
     )
     db.session.add(user)
-    #TODO: Tratar exception caso o usuario já exista
     db.session.commit()
     return user
 
