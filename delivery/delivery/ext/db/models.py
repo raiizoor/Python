@@ -1,5 +1,5 @@
 # -*- encoding: utf-8 -*-
-
+import os
 from delivery.ext.db import db, init_app, login_manager
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
@@ -37,7 +37,8 @@ class Items(db.Model):
     image = db.Column("image", db.Unicode)
     price = db.Column("price", db.Numeric)
     store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
-    available = db.Column("available", db.Boolean)
+    manysold = db.Column("manysold", db.Integer, default=0)
+    dateadded = db.Column("dateadded",db.DateTime,default=db.func.current_timestamp())
 
     store = db.relationship("Store", foreign_keys=store_id)
 
