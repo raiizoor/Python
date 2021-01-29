@@ -57,7 +57,7 @@ def login():
             flash("suas credênciais estão incorretas!", "danger")
             return redirect(url_for('.login'))
 
-        return redirect(url_for('cate.page'))
+        return render_template('login.html')
 
     return render_template('login/efectlogin.html', form=form)
 
