@@ -15,6 +15,17 @@
 {% block main %}
 <form action='{{url_for("main.signup")}}' method='post' enctype='multipart/form-data'>
 <div class="col-md-3 col-md-offset-4">
+    
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="flashes">
+            {% for message in messages %}
+                <li class="alert alert-warning">{{ message }}</li>
+            {% endfor %}
+            </ul>
+        {% endif %}
+        {% endwith %}        
+  
     {{form.csrf_token}}
     
     <div class="field">
