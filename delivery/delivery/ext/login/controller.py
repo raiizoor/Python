@@ -6,18 +6,14 @@ from flask import flash, redirect, url_for
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
-<<<<<<< HEAD
 from delivery.ext.db.models import User, Items, Store
-=======
+
 from delivery.ext.db.models import User, Category
 from delivery.ext.db.models import User, Items
->>>>>>> 5244b5f7d648bf51311bf3090c90691484c6c5c8
+
 from delivery.ext.db import db, models
 
-
-
 ALG = "pbkdf2:sha256"
-
 
 def list_users():
     users = models.User.query.all()

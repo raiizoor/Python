@@ -9,7 +9,7 @@ EXTENSIONS = [
     "delivery.ext.cli:init_app",
     "delivery.ext.views:init_app",  
 ]
-UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER = "static/uploads"
 
 
 
