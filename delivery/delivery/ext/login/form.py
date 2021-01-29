@@ -11,7 +11,7 @@ class UserForm(FlaskForm):
     password = wtf.PasswordField("Senha", [wtf.validators.DataRequired()] )
     foto = FileField ("Foto")
 
-  
+
 class LoginForm(FlaskForm):
     email = wtf.StringField(
         "Email", [wtf.validators.DataRequired(), wtf.validators.Email()]
@@ -27,4 +27,3 @@ class LoginForm(FlaskForm):
 class CategoryForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
     onmenu = wtf.BooleanField("On-menu")
-    

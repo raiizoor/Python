@@ -6,7 +6,6 @@ from delivery.ext.login.controller import create_category
 category = Blueprint("cate", __name__)
 
 @category.route('/page')
-@login_required
 def page():
     return render_template('login.html')
 
