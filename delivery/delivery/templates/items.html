@@ -1,0 +1,106 @@
+{% extends "logado.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+<div class="hero-body">
+    <div class="container">
+        <h1>Cadastro de Itens<h1>
+    </div>
+</div>
+</section>
+{% endblock %}
+
+{% block main %}
+<form action='{{url_for("cate.register_items")}}' method='post' enctype='multipart/cate-data'>
+<div class="col-md-3 col-md-offset-4">
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <ul class="flashes">
+        {% for category, message in messages %}
+            <li class="alert alert-{{category}}">{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% endwith %} 
+
+    {{item.csrf_token}}
+
+    <div class="form-group">
+        <label>Nome: </label>
+        {{ item.name(class="form-control", placeholder="Nome") }}
+        {% if item.errors.password %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for e in item.errors.password %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <label class="label">Imagem</label>         
+    <figure class="thumb col-md-4">
+        <figcaption>
+          <label class="fileContainer">
+            {{item.image(class="btn btn-link")}}
+          </label>
+        </figcaption>
+      </figure>
+
+    <div class="form-group">
+        <label>Valor: </label>
+        {{ item.price(class="form-control", placeholder="Valor") }}
+        {% if item.errors.password %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for e in item.errors.password %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label>Quantidade de Vendidos: </label>
+        {{ item.manysold(class="form-control", placeholder="Quantidade") }}
+        {% if item.errors.password %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for e in item.errors.password %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="form-group">
+        <label>Data Adicionado: </label>
+        {{ item.dateadded(class="form-control", placeholder="Data") }}
+        {% if item.errors.password %}
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                {% for e in item.errors.password %}
+                    <li>{{ e }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="control">
+        <input class="btn btn-info" type="submit" value="Cadastrar">
+    </div>
+
+
+</div>
+</form>    
+{% endblock %}
+
+
+
