@@ -18,8 +18,8 @@ def init_app(app):
     admin.init_app(app)
 
     admin.add_view(ModelView(Category, db.session))
-    admin.add_view(ModelView(Store, db.session))
     admin.add_view(ModelView(Items, db.session))
+    admin.add_view(ModelView(Store, db.session))
     admin.add_view(ModelView(Order, db.session))
     admin.add_view(ModelView(OrderItems, db.session))   
     admin.add_view(ModelView(Checkout, db.session))   

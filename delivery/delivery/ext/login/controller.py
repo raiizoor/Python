@@ -44,12 +44,11 @@ def create_category(name: str, on_menu:bool = False) -> Category:
     db.session.commit()
     return category
 
-def create_item(name: str, image: str, price: int, store_id:int) -> Items:
+def create_item(name: str, image: str, price: int) -> Items:
     items = Items(
         name = name,
         image = image,
-        price = price,
-        store_id = store_id
+        price = price
     )
     db.session.add(items)
     db.session.commit()
