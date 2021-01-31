@@ -36,18 +36,17 @@
           <a class="navbar-item" href="{{ url_for('page.about') }}">
             Sobre
           </a>
-    
           <div class="navbar-item has-dropdown is-hoverable">
             <a class="navbar-link">
               Cadastros
             </a>
     
             <div class="navbar-dropdown">
-              <a class="navbar-item" href="{{ url_for('cate.register') }}">
-                Categoria
+              <a class="navbar-item" href="{{ url_for('cate.register_items') }}">
+                Items
               </a>
-              <a class="navbar-item">
-                Pastel
+              <a class="navbar-item" href="{{ url_for('cate.register_category') }}">
+                Categoria
               </a>
               <a class="navbar-item">
                 hamburguer
