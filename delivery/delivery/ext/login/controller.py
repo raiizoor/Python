@@ -2,12 +2,11 @@ import os, click
 import cv2
 import numpy as np
 
-from flask import flash, redirect, url_for
+from flask import redirect, url_for
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
-from delivery.ext.db.models import User, Category
-from delivery.ext.db.models import User, Items
+from delivery.ext.db.models import User, Category, Items
 from delivery.ext.db import db, models
 
 
@@ -16,17 +15,14 @@ ALG = "pbkdf2:sha256"
 
 
 def list_users():
+    """Lista de usuários registrados"""
     users = models.User.query.all()
     click.echo(f"lista de usuarios {users}")
 
-def create_category(name: str, onmenu:bool = False) -> Category:
-    category = Category(
-        name = name,
-        onmenu = onmenu
-    )
-    db.session.add(category)
-    db.session.commit()
-    return category
+def list_categorys():
+    """Lista de categorias registradas"""
+    categorys = models.Category.query.all()
+    click.echo(f"lista de usuarios {categorys}")
 
 def create_user(name: str, email: str, password: str, admin:bool = False) -> User:
     user = User(
@@ -38,6 +34,15 @@ def create_user(name: str, email: str, password: str, admin:bool = False) -> Use
     db.session.add(user)
     db.session.commit()
     return user
+    
+def create_category(name: str, on_menu:bool = False) -> Category:
+    category = Category(
+        name = name,
+        on_menu = on_menu
+    )
+    db.session.add(category)
+    db.session.commit()
+    return category
 
 def create_item(name: str, image: str, price: int, store_id:int) -> Items:
     items = Items(
@@ -47,7 +52,6 @@ def create_item(name: str, image: str, price: int, store_id:int) -> Items:
         store_id = store_id
     )
     db.session.add(items)
-    #TODO: Tratar exception caso o item já exista
     db.session.commit()
     return items
 

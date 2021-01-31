@@ -37,10 +37,10 @@ def signup():
                         foto.filename,
                         foto
                     )
-            return render_template("login.html")
+            return redirect(url_for("cate.page"))
         except Exception:
-            flash("Usuário existente!", "warning")
-            return redirect(url_for('main.signup'))
+            flash("Este email já esta cadastrado!   ", "danger")
+            return redirect(url_for('.signup'))
         
     return render_template("login/userform.html", form=form)
 
@@ -62,10 +62,9 @@ def login():
     return render_template('login/efectlogin.html', form=form)
 
 @main.route('/logout')
-@login_required
 def logout():
     logout_user()
-    return redirect(url_for(".login"))
+    return redirect(url_for("main.login"))
 
 @main.route("/restaurantes")
 def restaurants():
