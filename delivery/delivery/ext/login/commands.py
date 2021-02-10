@@ -35,13 +35,21 @@ def add_category(name, on_menu):
         click.echo("Categoria já existe!")
 
 
-
-def add_item(name, image, price):
+@click.option("--name", "-s")
+@click.option("--image", "-s")
+@click.option("--price", "-f")
+@click.option("--store_id", "-s")
+@click.option("--manysold", "-i")
+@click.option("--dateadded", "-s")
+def add_item(name, image, price, store_id, manysold, dateadded):
     """Adicionar novo item"""
     create_item(
         name=name,
         image=image,
         price=price,
+        store_id=store_id,
+        manysold=manysold,
+        dateadded=dateadded
     )
 
     click.echo(f"Usuario {name} criado com sucesso!")

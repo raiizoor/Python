@@ -27,14 +27,24 @@
     {% endwith %} 
 
     {{item.csrf_token}}
+<!--
+    <div class="select">
+        <select>
+          <option>Selecione uma Loja</option>
+          <option>{{item.store_id}}</option>
+          <option></option>
+        </select>
+    </div>
+    -->
+    {{item.store_id}}
 
     <div class="form-group">
         <label>Nome: </label>
         {{ item.name(class="form-control", placeholder="Nome") }}
-        {% if item.errors.password %}
+        {% if item.errors.name %}
         <div class="alert alert-danger" role="alert">
             <ul>
-                {% for e in item.errors.password %}
+                {% for e in item.errors.name %}
                     <li>{{ e }}</li>
                 {% endfor %}
             </ul>
@@ -51,27 +61,38 @@
         </figcaption>
       </figure>
 
-    <div class="form-group">
-        <label>Valor: </label>
-        {{ item.price(class="form-control", placeholder="Valor") }}
-        {% if item.errors.password %}
-        <div class="alert alert-danger" role="alert">
-            <ul>
-                {% for e in item.errors.password %}
-                    <li>{{ e }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-    </div>
+      
+      <label>Valor: </label>
+      <div class="field has-addons">
+        <p class="control">
+          <span class="select">
+            <select>
+              <option>R$</option>
+              <option>$</option>
+            </select>
+          </span>
+        </p>
+        <p class="control is-expanded">
+            {{ item.price(class="input", placeholder="Valor") }}
+            {% if item.errors.price %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in item.errors.price %}
+                        <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </p>
+      </div>
 
     <div class="form-group">
-        <label>Quantidade de Vendidos: </label>
+        <label>Quantidade para Vendas: </label>
         {{ item.manysold(class="form-control", placeholder="Quantidade") }}
-        {% if item.errors.password %}
+        {% if item.errors.manysold %}
         <div class="alert alert-danger" role="alert">
             <ul>
-                {% for e in item.errors.password %}
+                {% for e in item.errors.manysold %}
                     <li>{{ e }}</li>
                 {% endfor %}
             </ul>
@@ -79,19 +100,21 @@
         {% endif %}
     </div>
 
+
     <div class="form-group">
-        <label>Data Adicionado: </label>
-        {{ item.dateadded(class="form-control", placeholder="Data") }}
-        {% if item.errors.password %}
+        <label>Adicionar Data: </label>
+        {{ item.dateadded(class="form-control", type="datetime-local", placeholder="Data e Hora") }}
+        {% if item.errors.dateadded %}
         <div class="alert alert-danger" role="alert">
             <ul>
-                {% for e in item.errors.password %}
+                {% for e in item.errors.dateadded %}
                     <li>{{ e }}</li>
                 {% endfor %}
             </ul>
         </div>
         {% endif %}
     </div>
+    
 
     <div class="control">
         <input class="btn btn-info" type="submit" value="Cadastrar">

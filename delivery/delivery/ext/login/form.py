@@ -1,6 +1,8 @@
 import wtforms as wtf
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
+from delivery.ext.db.models import Store
+from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
 
 class UserForm(FlaskForm):
@@ -16,15 +18,22 @@ class LoginForm(FlaskForm):
     )
     password = wtf.PasswordField("Senha", [wtf.validators.DataRequired()] )
 
-class ItemsForm(FlaskForm):
-    name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
-    image = FileField("Image", [wtf.validators.DataRequired()])
-    price = wtf.FloatField("Preço", [wtf.validators.DataRequired()])
-    manysold = wtf.IntegerField("ManySold", [wtf.validators.DataRequired()])
-    dateadded = wtf.DateTimeField("DateAdded", [wtf.validators.DataRequired()])
-
-    
 
 class CategoryForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
     onmenu = wtf.BooleanField("On-menu")
+
+
+class StoreForm(FlaskForm):
+    name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
+    user_id = wtf.SelectField("Selecionar Usuario", [wtf.validators.DataRequired()])
+    activate = wtf.BooleanField("Ativar")
+
+
+class ItemsForm(FlaskForm):
+    name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
+    image = FileField("Image")
+    price = wtf.FloatField("Preço", [wtf.validators.DataRequired()])
+    store_id = QuerySelectField(query_factory=lambda: Store.query.all())
+    manysold = wtf.IntegerField("Quantidade Venda", [wtf.validators.DataRequired()])
+    dateadded = wtf.StringField("Adicionar Data")
