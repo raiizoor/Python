@@ -39,6 +39,7 @@ class Items(db.Model):
     store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
     manysold = db.Column("manysold", db.Integer, default=0)
     dateadded = db.Column("dateadded",db.DateTime,default=db.func.current_timestamp())
+    
     store = db.relationship("Store", foreign_keys=store_id)
 
 ###########################################################

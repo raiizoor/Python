@@ -1,21 +1,21 @@
 from flask import Blueprint, current_app, render_template, redirect, request, url_for, flash, send_from_directory
-from flask_login import current_user, login_required
+from flask_login import current_user, login_required, login_user
 from flask_login.utils import login_required, logout_user
 from delivery.ext.db import db
 from delivery.ext.db.models import User
 from delivery.ext.login.form import UserForm, LoginForm
-from delivery.ext.login.controller import create_user, save_user_foto
+from delivery.ext.login.controller import create_user, save_user_picture
 from flask import current_app as app
 
 
 main = Blueprint("main", __name__)
-
+"""
 @main.before_request
 def before_request():
     if current_user.is_authenticated:
-        if request.endpoint == "main.login":
+        if request.endpoint == 'main.login':
             return redirect(url_for("cate.page"))
-
+"""
 @main.route('/uploads/<nome_arquivo>')
 def imagem(nome_arquivo):
     return send_from_directory(app.config["UPLOAD_FOLDER"], nome_arquivo)
@@ -33,7 +33,7 @@ def signup():
             )
             foto = request.files.get('foto')
             if foto:
-                save_user_foto(
+                save_user_picture(
                         foto.filename,
                         foto
                     )
@@ -57,11 +57,13 @@ def login():
             flash("suas credênciais estão incorretas!", "danger")
             return redirect(url_for('.login'))
 
+        login_user(auth)
         return redirect(url_for('cate.page'))
 
     return render_template('login/efectlogin.html', form=form)
 
 @main.route('/logout')
+@login_required
 def logout():
     logout_user()
     return redirect(url_for("main.login"))
