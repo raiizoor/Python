@@ -9,13 +9,13 @@ from flask import current_app as app
 
 
 main = Blueprint("main", __name__)
-"""
+
 @main.before_request
 def before_request():
     if current_user.is_authenticated:
         if request.endpoint == 'main.login':
             return redirect(url_for("cate.page"))
-"""
+
 @main.route('/uploads/<nome_arquivo>')
 def imagem(nome_arquivo):
     return send_from_directory(app.config["UPLOAD_FOLDER"], nome_arquivo)

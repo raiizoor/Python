@@ -11,6 +11,32 @@ category = Blueprint("cate", __name__)
 def page():
     return render_template('login.html')
 
+
+@category.route('/categoria', methods=['GET', 'POST'])
+@login_required
+def register_category():
+    cate = CategoryForm()
+
+    if cate.validate_on_submit():  
+        try:
+            create_category(
+                name=cate.name.data,
+            )
+            flash('Categoria registrada com sucesso!', 'success')
+            return redirect(url_for('.register_category'))
+        except Exception:
+            flash('Essa categoria já existe, registre outra!', 'warning')
+            return redirect(url_for('.register_category'))
+
+    return render_template("categoria.html", cate=cate)
+
+
+@category.route('/store', methods=['GET', 'POST'])
+@login_required
+def register_store():
+    pass
+
+
 @category.route('/items', methods=['GET', 'POST'])
 @login_required
 def register_items():
@@ -29,23 +55,3 @@ def register_items():
         return redirect(url_for('.register_items'))
 
     return render_template("items.html", item=item)
-
-@category.route('/categoria', methods=['GET', 'POST'])
-@login_required
-def register_category():
-    cate = CategoryForm()
-
-    if cate.validate_on_submit():  
-        try:
-            create_category(
-                name=cate.name.data,
-            )
-            flash('Categoria registrada com sucesso!', 'success')
-            return redirect(url_for('.register_category'))
-        except Exception:
-            flash('Essa categoria já existe, registre outra!', 'warning')
-            return redirect(url_for('.register_category'))
-
-
-    return render_template("categoria.html", cate=cate)
-

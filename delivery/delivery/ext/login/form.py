@@ -1,7 +1,7 @@
 import wtforms as wtf
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
-from delivery.ext.db.models import Store
+from delivery.ext.db.models import Store, User, Category
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
 
 
@@ -26,8 +26,9 @@ class CategoryForm(FlaskForm):
 
 class StoreForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
-    user_id = wtf.SelectField("Selecionar Usuario", [wtf.validators.DataRequired()])
-    activate = wtf.BooleanField("Ativar")
+    user_id = QuerySelectField(querry_factory=lambda: User.email.query.all())
+    category_id = QuerySelectField(querry_factory=lambda: Category.name.query.all())
+    active = wtf.BooleanField("Ativar", default=False)
 
 
 class ItemsForm(FlaskForm):

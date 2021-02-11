@@ -1,6 +1,6 @@
 import click
 from delivery.ext.db.models import User, Items
-from delivery.ext.login.controller import create_user, create_category, create_item
+from delivery.ext.login.controller import create_user, create_category, create_store, create_item
 from delivery.ext.db import db
 
 
@@ -34,12 +34,26 @@ def add_category(name, on_menu):
     except Exception:
         click.echo("Categoria já existe!")
 
+@click.option("--name_store", "-s")
+@click.option("--user_id", "-s")
+@click.option("--category_id", "-s")
+@click.option("--active", "-a")
+def add_store(name_store, user_id, category_id, active):
+    """Adicionar nova Loja"""
+    create_store(
+        name_store=name_store,
+        user_id=user_id,
+        category_id=category_id,
+        active=active
+    )
+
+    click.echo(f"Loja {name_store} criada com sucesso!")
 
 @click.option("--name", "-s")
 @click.option("--image", "-s")
-@click.option("--price", "-f")
+@click.option("--price", "--pos")
 @click.option("--store_id", "-s")
-@click.option("--manysold", "-i")
+@click.option("--manysold", "--n")
 @click.option("--dateadded", "-s")
 def add_item(name, image, price, store_id, manysold, dateadded):
     """Adicionar novo item"""
@@ -52,4 +66,4 @@ def add_item(name, image, price, store_id, manysold, dateadded):
         dateadded=dateadded
     )
 
-    click.echo(f"Usuario {name} criado com sucesso!")
+    click.echo(f"Item {name} criado com sucesso!")
