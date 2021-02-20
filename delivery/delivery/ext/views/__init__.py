@@ -1,6 +1,6 @@
 from .main import main
 from .page import page
-from .category import category
+from .routes_registers import category
 
 def init_app(app):
     app.register_blueprint(main)

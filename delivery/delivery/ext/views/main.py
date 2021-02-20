@@ -3,8 +3,8 @@ from flask_login import current_user, login_required, login_user
 from flask_login.utils import login_required, logout_user
 from delivery.ext.db import db
 from delivery.ext.db.models import User
-from delivery.ext.login.form import UserForm, LoginForm
-from delivery.ext.login.controller import create_user, save_user_picture
+from delivery.ext.auth.form import UserForm, LoginForm
+from delivery.ext.auth.controller import create_user, save_user_picture
 from flask import current_app as app
 
 
@@ -37,7 +37,8 @@ def signup():
                         foto.filename,
                         foto
                     )
-            return redirect(url_for("cate.page"))
+            flash('Cadastrado com Sucesso! Por favor faça o login.')
+            return redirect(url_for(".login"))
         except Exception:
             flash("Este email já esta cadastrado!   ", "danger")
             return redirect(url_for('.signup'))

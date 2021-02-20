@@ -3,7 +3,7 @@ DEBUG = false
 FLASK_ADMIN_SWATCH ="united"
 EXTENSIONS = [
     "delivery.ext.db:init_app",
-    "delivery.ext.login:init_app",
+    "delivery.ext.auth:init_app",
     "delivery.ext.admin:init_app",
     "delivery.ext.migrate:init_app",
     "delivery.ext.cli:init_app",
@@ -22,7 +22,7 @@ DEBUG_TB_PROFILER_ENABLED = true
 DEBUG_TB_INTERCEPT_REDIRECTS = false
 EXTENSIONS = [
     "delivery.ext.db:init_app",
-    "delivery.ext.login:init_app",
+    "delivery.ext.auth:init_app",
     "delivery.ext.admin:init_app",
     "delivery.ext.migrate:init_app",
     "delivery.ext.cli:init_app",
