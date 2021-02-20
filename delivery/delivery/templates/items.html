@@ -27,16 +27,9 @@
     {% endwith %} 
 
     {{item.csrf_token}}
-<!--
-    <div class="select">
-        <select>
-          <option>Selecione uma Loja</option>
-          <option>{{item.store_id}}</option>
-          <option></option>
-        </select>
-    </div>
-    -->
-    {{item.store_id}}
+
+    <label>Selecione uma loja</label>
+    {{item.store_id(class="form-control")}}
 
     <div class="form-group">
         <label>Nome: </label>
@@ -73,7 +66,7 @@
           </span>
         </p>
         <p class="control is-expanded">
-            {{ item.price(class="input", placeholder="Valor") }}
+            {{ item.price(class="input", type="number", placeholder="Valor") }}
             {% if item.errors.price %}
             <div class="alert alert-danger" role="alert">
                 <ul>
@@ -86,13 +79,13 @@
         </p>
       </div>
 
-    <div class="form-group">
-        <label>Quantidade para Vendas: </label>
-        {{ item.manysold(class="form-control", placeholder="Quantidade") }}
-        {% if item.errors.manysold %}
+    <div class="checkbox">
+        <label>Disponível </label>
+        {{ item.available(class="checkbox", type="checkbox") }}
+        {% if item.errors.available %}
         <div class="alert alert-danger" role="alert">
             <ul>
-                {% for e in item.errors.manysold %}
+                {% for e in item.errors.available %}
                     <li>{{ e }}</li>
                 {% endfor %}
             </ul>
@@ -100,21 +93,6 @@
         {% endif %}
     </div>
 
-
-    <div class="form-group">
-        <label>Adicionar Data: </label>
-        {{ item.dateadded(class="form-control", type="datetime-local", placeholder="Data e Hora") }}
-        {% if item.errors.dateadded %}
-        <div class="alert alert-danger" role="alert">
-            <ul>
-                {% for e in item.errors.dateadded %}
-                    <li>{{ e }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-        {% endif %}
-    </div>
-    
 
     <div class="control">
         <input class="btn btn-info" type="submit" value="Cadastrar">

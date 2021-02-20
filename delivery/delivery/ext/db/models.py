@@ -4,9 +4,12 @@ from delivery.ext.db import db, init_app, login_manager
 from flask_login import UserMixin
 from werkzeug.security import check_password_hash
 
+
+
 @login_manager.user_loader
 def get_user(user_id):
     return User.query.get(user_id)
+
 
 class User(db.Model, UserMixin):
     __tablename__ = "user"
@@ -30,19 +33,6 @@ class User(db.Model, UserMixin):
     def __repr__(self):
         return self.email
 
-class Items(db.Model):
-    __tablename__ = "items"
-    id = db.Column("id", db.Integer, primary_key=True)
-    name = db.Column("name", db.Unicode)
-    image = db.Column("image", db.Unicode)
-    price = db.Column("price", db.Numeric)
-    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
-    manysold = db.Column("manysold", db.Integer, default=0)
-    dateadded = db.Column("dateadded",db.DateTime,default=db.func.current_timestamp())
-    
-    store = db.relationship("Store", foreign_keys=store_id)
-
-###########################################################
 
 class Category(db.Model):
     __tablename__ = "category"
@@ -52,6 +42,7 @@ class Category(db.Model):
 
     def __repr__(self):
         return self.name
+
 
 class Store(db.Model):
     __tablename__ = "store"
@@ -66,6 +57,19 @@ class Store(db.Model):
 
     def __repr__(self):
         return self.name_store
+
+
+class Items(db.Model):
+    __tablename__ = "items"
+    id = db.Column("id", db.Integer, primary_key=True)
+    name = db.Column("name", db.Unicode)
+    image = db.Column("image", db.Unicode)
+    price = db.Column("price", db.Float)
+    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
+    available = db.Column("available", db.Boolean)
+    
+    store = db.relationship("Store", foreign_keys=store_id)
+
 
 class Order(db.Model):
     __tablename__ = "order"
@@ -91,6 +95,7 @@ class OrderItems(db.Model):
     order = db.relationship("Order", foreign_keys=order_id)
     items = db.relationship("Items", foreign_keys=items_id)
 
+
 class Address(db.Model):
     __tablename__ = "address"
     id = db.Column("id", db.Integer, primary_key=True)
@@ -100,6 +105,7 @@ class Address(db.Model):
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
 
     user = db.relationship("User", foreign_keys=user_id)
+
 
 class Checkout(db.Model):
     __tablename__ = "checkout"
