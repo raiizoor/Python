@@ -6,14 +6,14 @@
 <section class="hero is-primary">
 <div class="hero-body">
     <div class="container">
-        <h1>Cadastro de Categoria<h1>
+        <h1>Cadastro de Ordem de itens<h1>
     </div>
 </div>
 </section>
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_category")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_order_items")}}' method='post' enctype='multipart/cate-data'>
 <div class="col-md-3 col-md-offset-4">
     
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -26,12 +26,22 @@
     {% endif %}
     {% endwith %} 
 
-    {{cate.csrf_token}}
+    {{order_items.csrf_token}}
 
     <div class="form-group">
-        <label>Nome</label>
-        {{ cate.name(class="form-control", placeholder="Nome") }}
-        {% if cate.errors.password %}
+        <label>Ordens </label>
+        {{ order_items.order_id(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        <label>Itens </label>
+        {{ order_items.items_id(class="form-control") }}
+    </div>
+
+    <div class="form-group">
+        <label>Quantidade </label>
+        {{ order_items.quant(class="form-control", type="number", placeholder="Quantidade") }}
+        {% if order_items.errors.password %}
         <div class="alert alert-danger" role="alert">
             <ul>
                 {% for e in cate.errors.password %}
@@ -41,7 +51,8 @@
         </div>
         {% endif %}
     </div>
-
+    
+    
     <div class="control">
         <input class="button is-link" type="submit" value="Cadastrar">
         <button class="button is-link is-light"><a href="{{ url_for('page.index')}}">Voltar</a></button>

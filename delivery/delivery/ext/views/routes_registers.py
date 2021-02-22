@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, redirect, url_for, flash  
 from flask_login import login_required
-from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm
+from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm, OrderItemsForm
 from delivery.ext.auth.controller import create_category, create_item, create_store
 
 category = Blueprint("cate", __name__)
@@ -66,9 +66,16 @@ def register_items():
 
     return render_template("items.html", item=item)
 
-@category.route('/endereço', methods=['GET', 'POST'])
+@category.route('/address', methods=['GET', 'POST'])
 @login_required
 def register_address():
     address = AddressForm()
 
     return render_template("address.html", address=address)
+
+@category.route('/order_items', methods=['GET', 'POST'])
+@login_required
+def register_order_items():
+    order_items = OrderItemsForm()
+
+    return render_template("order_items.html", order_items=order_items)

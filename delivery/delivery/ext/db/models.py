@@ -100,8 +100,10 @@ class Address(db.Model):
     __tablename__ = "address"
     id = db.Column("id", db.Integer, primary_key=True)
     zip = db.Column("zip", db.Unicode)
-    country = db.Column("country", db.Unicode)
+    state = db.Column("country", db.Unicode)
+    city = db.Column("city", db.Unicode)
     address = db.Column("address", db.Unicode)
+    number_house = db.Column("number_house", db.Unicode)
     user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
 
     user = db.relationship("User", foreign_keys=user_id)

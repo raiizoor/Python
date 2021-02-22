@@ -4,104 +4,107 @@
 
 
 <section class="hero is-primary">
-<div class="hero-body">
-    <div class="container">
-        <h1>Cadastro de Itens<h1>
+    <div class="hero-body">
+        <div class="container">
+            <h1>Cadastro de Itens<h1>
+        </div>
     </div>
-</div>
 </section>
 {% endblock %}
 
 {% block main %}
 <form action='{{url_for("cate.register_items")}}' method='post' enctype='multipart/cate-data'>
-<div class="col-md-3 col-md-offset-4">
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
+    <div class="col-md-3 col-md-offset-4">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
         <ul class="flashes">
-        {% for category, message in messages %}
+            {% for category, message in messages %}
             <li class="alert alert-{{category}}">{{ message }}</li>
-        {% endfor %}
+            {% endfor %}
         </ul>
-    {% endif %}
-    {% endwith %} 
-
-    {{item.csrf_token}}
-
-    <label>Selecione uma loja</label>
-    {{item.store_id(class="form-control")}}
-
-    <div class="form-group">
-        <label>Nome: </label>
-        {{ item.name(class="form-control", placeholder="Nome") }}
-        {% if item.errors.name %}
-        <div class="alert alert-danger" role="alert">
-            <ul>
-                {% for e in item.errors.name %}
-                    <li>{{ e }}</li>
-                {% endfor %}
-            </ul>
-        </div>
         {% endif %}
-    </div>
+        {% endwith %}
 
-    <label class="label">Imagem</label>         
-    <figure class="thumb col-md-4">
-        <figcaption>
-          <label class="fileContainer">
-            {{item.image(class="btn btn-link")}}
-          </label>
-        </figcaption>
-      </figure>
+        {{item.csrf_token}}
 
-      
-      <label>Valor: </label>
-      <div class="field has-addons">
-        <p class="control">
-          <span class="select">
-            <select>
-              <option>R$</option>
-              <option>$</option>
-            </select>
-          </span>
-        </p>
-        <p class="control is-expanded">
-            {{ item.price(class="input", type="number", placeholder="Valor") }}
-            {% if item.errors.price %}
+        <div class="form-group">
+            <label>Selecione uma loja</label>
+            {{item.store_id(class="form-control")}}
+        </div>
+
+        <div class="form-group">
+            <label>Nome</label>
+            {{ item.name(class="form-control", placeholder="Nome") }}
+            {% if item.errors.name %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in item.errors.price %}
-                        <li>{{ e }}</li>
+                    {% for e in item.errors.name %}
+                    <li>{{ e }}</li>
                     {% endfor %}
                 </ul>
             </div>
             {% endif %}
-        </p>
-      </div>
-
-    <div class="checkbox">
-        <label>Disponível </label>
-        {{ item.available(class="checkbox", type="checkbox") }}
-        {% if item.errors.available %}
-        <div class="alert alert-danger" role="alert">
-            <ul>
-                {% for e in item.errors.available %}
-                    <li>{{ e }}</li>
-                {% endfor %}
-            </ul>
         </div>
-        {% endif %}
+
+        <div class="form-group">
+            <label class="label">Imagem</label>
+            <figure class="thumb col-md-4">
+                <figcaption>
+                    <label class="fileContainer">
+                        {{item.image(class="btn btn-link")}}
+                    </label>
+                </figcaption>
+            </figure>
+        </div>
+
+        <div class="form-group">
+            <label>Valor</label>
+            <div class="field has-addons">
+                <p class="control">
+                    <span class="select">
+                        <select>
+                            <option>R$</option>
+                            <option>$</option>
+                        </select>
+                    </span>
+                </p>
+                <p class="control is-expanded">
+                    {{ item.price(class="input", type="number", placeholder="Valor") }}
+                    {% if item.errors.price %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for e in item.errors.price %}
+                        <li>{{ e }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                </p>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Disponível </label>
+            {{ item.available(class="checkbox", type="checkbox") }}
+            {% if item.errors.available %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in item.errors.available %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+
+        <div class="control">
+            <input class="button is-link" type="submit" value="Cadastrar">
+            <button class="button is-link is-light"><a href="{{ url_for('page.index')}}">Voltar</a></button>
+        </div>
+
+
     </div>
-
-
-    <div class="control">
-        <input class="btn btn-info" type="submit" value="Cadastrar">
-    </div>
-
-
-</div>
-</form>    
+</form>
 {% endblock %}
-
-
-

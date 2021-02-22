@@ -77,10 +77,13 @@
                 Loja
               </a>
               <a class="navbar-item" href="{{ url_for('cate.register_items') }}">
-                Items
+                Itens
               </a>
               <a class="navbar-item" href="{{ url_for('cate.register_address') }}">
                 Endereço
+              </a>
+              <a class="navbar-item" href="{{ url_for('cate.register_order_items') }}">
+                Ordem de Itens
               </a>
               <hr class="navbar-divider">
               <a class="navbar-item">
@@ -91,7 +94,7 @@
         {% endif %}
         </div>
 
-    
+        {% if not current_user.is_authenticated %}
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
@@ -104,7 +107,20 @@
             </div>
           </div>
         </div>
+        {% endif %}
+
+        {% if current_user.is_authenticated %}
+        <div class="navbar-end">
+          <div class="navbar-item">
+            <div class="buttons">
+              <a class="button is-light" href="{{url_for('main.logout')}}">
+                Log out
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
+      {% endif %}
     </nav>
     {% endblock nav %}
 

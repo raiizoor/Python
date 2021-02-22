@@ -1,9 +1,9 @@
 import wtforms as wtf
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
-from delivery.ext.db.models import Store, User, Category
+from delivery.ext.db.models import Store, User, Category, Address, OrderItems, Order, Items
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-
+import pycountry
 
 class UserForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
@@ -26,10 +26,9 @@ class CategoryForm(FlaskForm):
 
 class StoresForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
-    user_id = QuerySelectField("user_id", querry_factory=lambda: User.query.all())
-    category_id = QuerySelectField("category_id", querry_factory=lambda: Category.query.all())
+    user_id = QuerySelectField("user_id", query_factory=lambda: User.query.all())
+    category_id = QuerySelectField(query_factory=lambda: Category.query.all())
     active = wtf.BooleanField("Ativar", default=False)
-
 
 class ItemsForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
@@ -43,6 +42,13 @@ class ItemsForm(FlaskForm):
 
 class AddressForm(FlaskForm):
     zip = wtf.StringField("CEP", [wtf.validators.DataRequired()])
-    country = wtf.StringField("Pais", [wtf.validators.DataRequired()])
+    state = wtf.SelectField("Estado", [wtf.validators.DataRequired()])               
+    city = wtf.SelectField("Cidade", [wtf.validators.DataRequired()])               
     address= wtf.StringField("Endereço", [wtf.validators.DataRequired()])
-    user_id = QuerySelectField("user_id", querry_factory=lambda: User.query.all())
+    number_house= wtf.IntegerField("N°", [wtf.validators.DataRequired()])
+    user_id = QuerySelectField("user_id", query_factory=lambda: User.query.all())
+
+class OrderItemsForm(FlaskForm):
+    order_id = QuerySelectField("order_id", query_factory=lambda: Order.query.all())
+    items_id = QuerySelectField("items_id", query_factory=lambda: Items.query.all())
+    quant = wtf.IntegerField("Quantidade", [wtf.validators.DataRequired()])
