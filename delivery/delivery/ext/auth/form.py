@@ -24,10 +24,10 @@ class CategoryForm(FlaskForm):
     onmenu = wtf.BooleanField("On-menu")
 
 
-class StoreForm(FlaskForm):
+class StoresForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
-    user_id = QuerySelectField(querry_factory=lambda: User.query.all())
-    category_id = QuerySelectField(querry_factory=lambda: Category.query.all())
+    user_id = QuerySelectField("user_id", querry_factory=lambda: User.query.all())
+    category_id = QuerySelectField("category_id", querry_factory=lambda: Category.query.all())
     active = wtf.BooleanField("Ativar", default=False)
 
 
@@ -41,3 +41,8 @@ class ItemsForm(FlaskForm):
     #def possible_id_store():
      #   return Store.query.with_entities(Store.id)
 
+class AddressForm(FlaskForm):
+    zip = wtf.StringField("CEP", [wtf.validators.DataRequired()])
+    country = wtf.StringField("Pais", [wtf.validators.DataRequired()])
+    address= wtf.StringField("Endereço", [wtf.validators.DataRequired()])
+    user_id = QuerySelectField("user_id", querry_factory=lambda: User.query.all())

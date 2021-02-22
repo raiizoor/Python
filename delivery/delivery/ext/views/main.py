@@ -14,7 +14,7 @@ main = Blueprint("main", __name__)
 def before_request():
     if current_user.is_authenticated:
         if request.endpoint == 'main.login':
-            return redirect(url_for("cate.page"))
+            return redirect(url_for("page.index"))
 
 @main.route('/uploads/<nome_arquivo>')
 def imagem(nome_arquivo):
@@ -59,7 +59,7 @@ def login():
             return redirect(url_for('.login'))
 
         login_user(auth)
-        return redirect(url_for('cate.page'))
+        return redirect(url_for('page.index'))
 
     return render_template('login/efectlogin.html', form=form)
 

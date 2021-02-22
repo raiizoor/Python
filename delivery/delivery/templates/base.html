@@ -62,7 +62,35 @@
               </a>
             </div>
           </div>
+          {% if current_user.is_authenticated %}
+          <div class="navbar-item has-dropdown is-hoverable">
+            <a class="navbar-link">
+              Cadastros
+            </a>
+              
+            <div class="navbar-dropdown">
+
+              <a class="navbar-item" href="{{ url_for('cate.register_category') }}">
+                Categoria
+              </a>
+              <a class="navbar-item" href="{{ url_for('cate.register_store') }}">
+                Loja
+              </a>
+              <a class="navbar-item" href="{{ url_for('cate.register_items') }}">
+                Items
+              </a>
+              <a class="navbar-item" href="{{ url_for('cate.register_address') }}">
+                Endereço
+              </a>
+              <hr class="navbar-divider">
+              <a class="navbar-item">
+                Report an issue
+              </a>
+            </div>
+          </div>
+        {% endif %}
         </div>
+
     
         <div class="navbar-end">
           <div class="navbar-item">

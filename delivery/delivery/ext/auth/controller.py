@@ -56,11 +56,11 @@ def create_category(name: str, on_menu: bool = False) -> Category:
     db.session.commit()
     return category
 
-def create_store(name_store: str, user_id: Store.user, category: int=Store.category_id , active: bool=False) -> Store:
+def create_store(name_store: str, user_id: Store.user, category_id: str , active: bool=True) -> Store:
     store = Store(
         name_store = name_store,
         user_id = user_id,
-        category = category,
+        category_id = category_id,
         active = active
     )
     db.session.add(store)

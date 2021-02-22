@@ -13,7 +13,7 @@
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_category")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_address")}}' method='post' enctype='multipart/cate-data'>
 <div class="col-md-3 col-md-offset-4">
     
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -26,12 +26,12 @@
     {% endif %}
     {% endwith %} 
 
-    {{cate.csrf_token}}
+    {{address.csrf_token}}
 
     <div class="form-group">
-        <label>Nome: </label>
-        {{ cate.name(class="form-control", placeholder="Nome") }}
-        {% if cate.errors.password %}
+        <label>CEP: </label>
+        {{ address.name(class="form-control", placeholder="CEP") }}
+        {% if address.errors.password %}
         <div class="alert alert-danger" role="alert">
             <ul>
                 {% for e in cate.errors.password %}

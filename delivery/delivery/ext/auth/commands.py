@@ -37,7 +37,7 @@ def add_category(name, on_menu):
 @click.option("--name_store", "-s")
 @click.option("--user_id", "-s")
 @click.option("--category", "-s")
-@click.option("--active", "-a")
+@click.option("--active", "-a", is_flag=True, default=True)
 def add_store(name_store, user_id, category, active):
     """Adicionar nova Loja"""
     create_store(
