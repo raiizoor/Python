@@ -1,6 +1,6 @@
 import click
 from delivery.ext.db.models import User, Items
-from delivery.ext.auth.controller import create_user, create_category, create_store, create_item
+from delivery.ext.auth.controller import create_user, create_category, create_store, create_item, create_address
 from delivery.ext.db import db
 
 
@@ -36,14 +36,14 @@ def add_category(name, on_menu):
 
 @click.option("--name_store", "-s")
 @click.option("--user_id", "-s")
-@click.option("--category", "-s")
-@click.option("--active", "-a", is_flag=True, default=True)
-def add_store(name_store, user_id, category, active):
+@click.option("--category_id", "-s")
+@click.option("--active", "-a", is_flag=True, default=False)
+def add_store(name_store, user_id, category_id, active):
     """Adicionar nova Loja"""
     create_store(
         name_store=name_store,
         user_id=user_id,
-        category=category,
+        category_id=category_id,
         active=active
     )
 
@@ -53,7 +53,7 @@ def add_store(name_store, user_id, category, active):
 @click.option("--image", "-s")
 @click.option("--price", "--pos")
 @click.option("--store_id", "-s")
-@click.option("--available", "-a")
+@click.option("--available", "-a", is_flag=True, default=True)
 def add_item(name, image, price, store_id, available):
     """Adicionar novo item"""
     create_item(
@@ -65,3 +65,21 @@ def add_item(name, image, price, store_id, available):
     )
 
     click.echo(f"Item {name} criado com sucesso!")
+
+
+@click.option("--zip", "-s")
+@click.option("--state", "-s")
+@click.option("--city", "-s")
+@click.option("--address", "-s")
+@click.option("--number_house", "--n")
+def add_address(zip, state, city, address, number_house):
+    """Adicionar novo endereço"""
+    create_address(
+        zip=zip,
+        state=state,
+        city=city,
+        address=address,
+        number_house=number_house,
+    )
+
+    click.echo(f"Endereço {address} criado com sucesso!")

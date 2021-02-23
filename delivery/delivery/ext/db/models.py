@@ -48,8 +48,8 @@ class Store(db.Model):
     __tablename__ = "store"
     id = db.Column("id", db.Integer, primary_key=True)
     name_store = db.Column("name_store", db.String, unique=True)
-    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
-    category_id = db.Column("category_id", db.Integer, db.ForeignKey("category.id"))
+    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.email"))
+    category_id = db.Column("category_id", db.Integer, db.ForeignKey("category.name"))
     active = db.Column("active", db.Boolean, default=False)
 
     user = db.relationship("User", foreign_keys=user_id)

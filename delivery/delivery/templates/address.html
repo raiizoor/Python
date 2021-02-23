@@ -28,12 +28,12 @@
                 {% endif %}
                 {% endwith %}
 
-                {{address.csrf_token}}
+                {{addres.csrf_token}}
 
                 <div class="form-group">
                     <label>CEP</label>
-                    {{ address.zip(class="form-control", type="number", placeholder="CEP") }}
-                    {% if address.errors.password %}
+                    {{ addres.zip(class="form-control", type="number", placeholder="CEP") }}
+                    {% if addres.errors.password %}
                     <div class="alert alert-danger" role="alert">
                         <ul>
                             {% for e in cate.errors.password %}
@@ -46,12 +46,12 @@
 
                 <div class="form-group">
                     <label>Estado</label>
-                    {{ address.state(class="form-control") }}
+                    {{ addres.state(class="form-control") }}
                 </div>
 
                 <div class="form-group">
                     <label>Cidade</label>
-                    {{ address.city(class="form-control") }}
+                    {{ addres.city(class="form-control") }}
                 </div>
                 <div class="control">
                     <input class="button is-link" type="submit" value="Cadastrar">
@@ -62,8 +62,8 @@
             <div class="column">
                 <div class="form-group">
                     <label>Endereço</label>
-                    {{ address.address(class="form-control", placeholder="Endereço") }}
-                    {% if address.errors.password %}
+                    {{ addres.address(class="form-control", placeholder="Endereço") }}
+                    {% if addres.errors.password %}
                     <div class="alert alert-danger" role="alert">
                         <ul>
                             {% for e in cate.errors.password %}
@@ -76,8 +76,8 @@
 
                 <div class="form-group">
                     <label>Número da casa</label>
-                    {{ address.address(class="form-control", type="number", placeholder="N°") }}
-                    {% if address.errors.password %}
+                    {{ addres.number_house(class="form-control", type="number", placeholder="N°") }}
+                    {% if addres.errors.password %}
                     <div class="alert alert-danger" role="alert">
                         <ul>
                             {% for e in cate.errors.password %}

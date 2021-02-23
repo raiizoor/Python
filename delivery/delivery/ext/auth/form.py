@@ -3,7 +3,6 @@ from flask_wtf import FlaskForm
 from flask_wtf.file import FileField
 from delivery.ext.db.models import Store, User, Category, Address, OrderItems, Order, Items
 from wtforms.ext.sqlalchemy.fields import QuerySelectField
-import pycountry
 
 class UserForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
@@ -26,9 +25,8 @@ class CategoryForm(FlaskForm):
 
 class StoresForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
-    user_id = QuerySelectField("user_id", query_factory=lambda: User.query.all())
-    category_id = QuerySelectField(query_factory=lambda: Category.query.all())
-    active = wtf.BooleanField("Ativar", default=False)
+    user_id = QuerySelectField("user_id", query_factory=lambda: User.query.all(), get_label='email')
+    category_id = QuerySelectField(query_factory=lambda: Category.query.all(), get_label='name')
 
 class ItemsForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
@@ -37,16 +35,12 @@ class ItemsForm(FlaskForm):
     store_id = QuerySelectField('store_id', query_factory=lambda: Store.query.all())
     available = wtf.BooleanField("Disponivel", default=True)
 
-    #def possible_id_store():
-     #   return Store.query.with_entities(Store.id)
-
 class AddressForm(FlaskForm):
     zip = wtf.StringField("CEP", [wtf.validators.DataRequired()])
-    state = wtf.SelectField("Estado", [wtf.validators.DataRequired()])               
-    city = wtf.SelectField("Cidade", [wtf.validators.DataRequired()])               
+    state = wtf.SelectField("Estado")               
+    city = wtf.SelectField("Cidade")               
     address= wtf.StringField("Endereço", [wtf.validators.DataRequired()])
     number_house= wtf.IntegerField("N°", [wtf.validators.DataRequired()])
-    user_id = QuerySelectField("user_id", query_factory=lambda: User.query.all())
 
 class OrderItemsForm(FlaskForm):
     order_id = QuerySelectField("order_id", query_factory=lambda: Order.query.all())

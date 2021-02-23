@@ -1,139 +1,152 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    {% block head %}
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Hello Bulma!</title>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-    {% endblock head %}
 
-    {%block extra_css%} {%endblock extra_css %}
-  </head>
-  <body>
-      {% block nav %}
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-      <div class="navbar-brand">
+<head>
+  {% block head %}
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hello Bulma!</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script defer src="https://use.fontawesome.com/releases/v5.14.0/js/all.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+  {% endblock head %}
+
+  {%block extra_css%} {%endblock extra_css %}
+</head>
+
+<body>
+  {% block nav %}
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/">
+        <strong> CodeFoods</strong>
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+        data-target="navbarBasicExample">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarBasicExample" class="navbar-menu">
+      <div class="navbar-start">
         <a class="navbar-item" href="/">
-          <strong> CodeFoods</strong>
+          Home
         </a>
-    
-        <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
+
+        <a class="navbar-item" href="{{ url_for('page.restaurants') }}">
+          Restaurantes
         </a>
-      </div>
-    
-      <div id="navbarBasicExample" class="navbar-menu">
-        <div class="navbar-start">
-          <a class="navbar-item" href="/">
-            Home
-          </a>
-    
-          <a class="navbar-item" href="{{ url_for('page.restaurants') }}">
-            Restaurantes
+
+        <a class="navbar-item" href="{{ url_for('page.about') }}">
+          Sobre
+        </a>
+
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Mais
           </a>
 
-          <a class="navbar-item" href="{{ url_for('page.about') }}">
-            Sobre
-          </a>
-    
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              More
+          <div class="navbar-dropdown">
+            <a class="navbar-item">
+              Pizza
             </a>
-    
-            <div class="navbar-dropdown">
-              <a class="navbar-item">
-                Pizza
-              </a>
-              <a class="navbar-item">
-                Pastel
-              </a>
-              <a class="navbar-item">
-                hamburguer
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
-          {% if current_user.is_authenticated %}
-          <div class="navbar-item has-dropdown is-hoverable">
-            <a class="navbar-link">
-              Cadastros
+            <a class="navbar-item">
+              Pastel
             </a>
-              
-            <div class="navbar-dropdown">
-
-              <a class="navbar-item" href="{{ url_for('cate.register_category') }}">
-                Categoria
-              </a>
-              <a class="navbar-item" href="{{ url_for('cate.register_store') }}">
-                Loja
-              </a>
-              <a class="navbar-item" href="{{ url_for('cate.register_items') }}">
-                Itens
-              </a>
-              <a class="navbar-item" href="{{ url_for('cate.register_address') }}">
-                Endereço
-              </a>
-              <a class="navbar-item" href="{{ url_for('cate.register_order_items') }}">
-                Ordem de Itens
-              </a>
-              <hr class="navbar-divider">
-              <a class="navbar-item">
-                Report an issue
-              </a>
-            </div>
-          </div>
-        {% endif %}
-        </div>
-
-        {% if not current_user.is_authenticated %}
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-primary" href="{{url_for('main.signup')}}">
-                <strong>Sign up</strong>
-              </a>
-              <a class="button is-light" href="{{url_for('main.login')}}">
-                Log in
-              </a>
-            </div>
+            <a class="navbar-item">
+              hamburguer
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Reportar um problema
+            </a>
           </div>
         </div>
-        {% endif %}
-
         {% if current_user.is_authenticated %}
-        <div class="navbar-end">
-          <div class="navbar-item">
-            <div class="buttons">
-              <a class="button is-light" href="{{url_for('main.logout')}}">
-                Log out
-              </a>
-            </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            Cadastros
+          </a>
+
+          <div class="navbar-dropdown">
+
+            <a class="navbar-item" href="{{ url_for('cate.register_category') }}">
+              Categoria
+            </a>
+            <a class="navbar-item" href="{{ url_for('cate.register_store') }}">
+              Loja
+            </a>
+            <a class="navbar-item" href="{{ url_for('cate.register_items') }}">
+              Itens
+            </a>
+            <a class="navbar-item" href="{{ url_for('cate.register_address') }}">
+              Endereço
+            </a>
+            <a class="navbar-item" href="{{ url_for('cate.register_order_items') }}">
+              Ordem de Itens
+            </a>
+            <hr class="navbar-divider">
+            <a class="navbar-item">
+              Reportar um problema
+            </a>
+          </div>
+        </div>
+        {% endif %}
+      </div>
+
+      {% if not current_user.is_authenticated %}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" href="{{url_for('main.signup')}}">
+              <strong>Sign up</strong>
+            </a>
+            <a class="button is-light" href="{{url_for('main.login')}}">
+              Log in
+            </a>
           </div>
         </div>
       </div>
       {% endif %}
-    </nav>
-    {% endblock nav %}
 
-    {% block top %} {% endblock top %}
+      {% if current_user.is_authenticated %}
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-light" href="{{url_for('main.logout')}}">
+              Log out
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    {% endif %}
+  </nav>
+  {% endblock nav %}
 
+  {% block top %} {% endblock top %}
+
+  
+  {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+  <ul class="flashes">
+      {% for category, message in messages %}
+      <li class="alert alert-{{category}}">{{ message }}</li>
+      {% endfor %}
+  </ul>
+  {% endif %}
+  {% endwith %}
 
   <section class="section">
     <div class="container">
-      
-      {% block main %} {% endblock  main %}
+
+      {% block main %} {% endblock main %}
     </div>
   </section>
-  
+
 
   {% block footer %}
   <footer class="footer">
@@ -149,6 +162,7 @@
 
   <script type="text/javascript" src="{{ url_for('static', filename='jquery.js') }}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
-  
-  </body>
+
+</body>
+
 </html>

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash  
-from flask_login import login_required
+from flask_login import login_required, current_user
 from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm, OrderItemsForm
-from delivery.ext.auth.controller import create_category, create_item, create_store
+from delivery.ext.auth.controller import create_category, create_item, create_store, create_address
 
 category = Blueprint("cate", __name__)
 
@@ -38,11 +38,11 @@ def register_store():
 
     if store.validate_on_submit():
         create_store(
-            name_store=name_store,
-            user_id=user_id,
-            category_id=category_id,
-            active=active
+            name_store=store.name_store.data,
+            user_id=store.user_id.data,
+            category_id=store.category_id.data
         )
+        flash('Nice', 'sucess')
         return redirect(url_for('.register_store'))
 
     return render_template("stores.html", store=store)
@@ -69,9 +69,25 @@ def register_items():
 @category.route('/address', methods=['GET', 'POST'])
 @login_required
 def register_address():
-    address = AddressForm()
+    addres = AddressForm()
 
-    return render_template("address.html", address=address)
+    if addres.validate_on_submit():
+        try:
+            create_address(
+                zip = addres.zip.data,
+                state = addres.state.data,
+                city = addres.city.data,
+                address = addres.address.data,
+                number_house = addres.number_house.data,
+                #user_id = current_user.id
+            )
+            flash('Nice', 'success')
+            return redirect(url_for('.register_address'))
+        except Exception:
+            flash('Deu bosta', 'warning')
+            return redirect(url_for('.register_address'))
+
+    return render_template("address.html", addres=addres)
 
 @category.route('/order_items', methods=['GET', 'POST'])
 @login_required

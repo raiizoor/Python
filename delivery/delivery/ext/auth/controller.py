@@ -4,10 +4,11 @@ import numpy as np
 import warnings
 
 from flask import redirect, url_for
+from flask_login import current_user
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
-from delivery.ext.db.models import User, Category, Store, Items
+from delivery.ext.db.models import User, Category, Store, Items, Address
 from delivery.ext.db import db, models
 from datetime import datetime
 
@@ -36,6 +37,11 @@ def list_itens():
     items = models.Items.query.all()
     click.echo(f"Lista de itens {items}")
 
+def list_address():
+    """Lista de endereços registrados"""
+    address = models.Address.query.all()
+    click.echo(f"Lista de endereços {address}")
+
 def create_user(name: str, email: str, password: str, admin:bool = False) -> User:
     user = User(
         name = name,
@@ -56,7 +62,7 @@ def create_category(name: str, on_menu: bool = False) -> Category:
     db.session.commit()
     return category
 
-def create_store(name_store: str, user_id: Store.user, category_id: str , active: bool=True) -> Store:
+def create_store(name_store: str, user_id: str, category_id:str , active: bool = False) -> Store:
     store = Store(
         name_store = name_store,
         user_id = user_id,
@@ -78,6 +84,19 @@ def create_item(name: str, image: int, price: float, store_id: int, available: b
     db.session.add(items)
     db.session.commit()
     return items
+
+def create_address(zip, state, city, address, number_house) -> Address:
+    address = Address(
+        zip = zip,
+        state = state,
+        city = city,
+        address = address,
+        number_house = number_house,
+        #user_id = user_id
+    )
+    db.session.add(address)
+    db.session.commit()
+    return address
 
 def save_user_picture(filename, filestore):
     filename = os.path.join(
