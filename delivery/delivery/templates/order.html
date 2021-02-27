@@ -6,14 +6,14 @@
 <section class="hero is-primary">
     <div class="hero-body">
         <div class="container">
-            <h1>Cadastro de Estabelecimento<h1>
+            <h1>Cadastro de Ordem de compra<h1>
         </div>
     </div>
 </section>
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_store")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_order")}}' method='post' enctype='multipart/cate-data'>
     <div class="col-md-3 col-md-offset-4">
 
         {% with messages = get_flashed_messages(with_categories=true) %}
@@ -26,20 +26,15 @@
         {% endif %}
         {% endwith %}
 
-        {{store.csrf_token}}
+        {{order.csrf_token}}
 
         <div class="form-group">
-            <label>Selecione uma Categoria</label>
-            {{store.category_id(class="form-control")}}
-        </div>
-
-        <div class="form-group">
-            <label>Nome </label>
-            {{ store.name_store(class="form-control", placeholder="Nome do Estabelecimento") }}
-            {% if store.errors.name %}
+            <label>Estabelecimento: </label>
+            {{ order.store_id(class="form-control", placeholder="Estabelecimento que comprou") }}
+            {% if order.errors.name %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in store.errors.name %}
+                    {% for e in order.errors.name %}
                     <li>{{ e }}</li>
                     {% endfor %}
                 </ul>
@@ -48,15 +43,15 @@
         </div>
 
         <div class="form-group">
-            <label>Ativo </label>
-            {{ store.active(class="checkbox", type="checkbox") }}
-            {% if store.errors.available %}
+            <label>Comprar agora? </label>
+            {{ order.completed(class="checkbox", type="checkbox") }}
+            {% if order.errors.available %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in store.errors.available %}
+                    {% for e in order.errors.available %}
                     <li>{{ e }}</li>
                     {% endfor %}
-                </ul>
+                </ul>   
             </div>
             {% endif %}
         </div>

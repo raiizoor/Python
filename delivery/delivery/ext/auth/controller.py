@@ -8,9 +8,8 @@ from flask_login import current_user
 from werkzeug.security import generate_password_hash
 from werkzeug.utils import secure_filename
 from flask import current_app as app
-from delivery.ext.db.models import User, Category, Store, Items, Address
+from delivery.ext.db.models import User, Category, Store, Items, Address, Order
 from delivery.ext.db import db, models
-from datetime import datetime
 
 
 
@@ -40,7 +39,12 @@ def list_itens():
 def list_address():
     """Lista de endereços registrados"""
     address = models.Address.query.all()
-    click.echo(f"Lista de endereços {address}")
+    click.echo(f"Lista de endereços com CEP {address}")
+
+def list_order():
+    """Lista de ordem de compras"""
+    order = models.Order.query.all()
+    click.echo(f"Lista de ordem de compras {order}")
 
 def create_user(name: str, email: str, password: str, admin:bool = False) -> User:
     user = User(
@@ -62,7 +66,7 @@ def create_category(name: str, on_menu: bool = False) -> Category:
     db.session.commit()
     return category
 
-def create_store(name_store: str, user_id: str, category_id:str , active: bool = False) -> Store:
+def create_store(name_store: str, user_id: int, category_id:str , active: bool) -> Store:
     store = Store(
         name_store = name_store,
         user_id = user_id,
@@ -73,10 +77,9 @@ def create_store(name_store: str, user_id: str, category_id:str , active: bool =
     db.session.commit()
     return store
 
-def create_item(name: str, image: int, price: float, store_id: int, available: bool=True) -> Items:
+def create_item(name: str, price: float, store_id: str, available: bool=True) -> Items:
     items = Items(
         name = name,
-        image = image,
         price = price,
         store_id = store_id,
         available = available,
@@ -85,19 +88,38 @@ def create_item(name: str, image: int, price: float, store_id: int, available: b
     db.session.commit()
     return items
 
-def create_address(zip, state, city, address, number_house) -> Address:
+def create_address(zip_code: str, state: str, city: str, address: str, number_house: int, user_id: str) -> Address:
     address = Address(
-        zip = zip,
+        zip_code = zip_code,
         state = state,
         city = city,
         address = address,
         number_house = number_house,
-        #user_id = user_id
+        user_id = user_id
     )
     db.session.add(address)
     db.session.commit()
     return address
 
+def create_order(created_at: str, completed: bool, user_id: str, store_id: str) -> Order:
+    order = Order(
+        created_at = created_at,
+        completed = completed,
+        user_id = user_id,
+        store_id = store_id,
+    )
+    db.session.add(order)
+    db.session.commit()
+    return order
+
+"""
+def save_item_picture(filename, filestore):
+    filename = os.path.join(
+        app.config["UPLOAD_FOLDER"],
+        secure_filename(filename)
+    )
+    filestore.save(filename)
+"""
 def save_user_picture(filename, filestore):
     filename = os.path.join(
         app.config["UPLOAD_FOLDER"],

@@ -63,12 +63,15 @@ class Items(db.Model):
     __tablename__ = "items"
     id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.Unicode)
-    image = db.Column("image", db.Unicode)
+    #image = db.Column("image", db.Unicode)
     price = db.Column("price", db.Float)
-    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
+    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.name_store"))
     available = db.Column("available", db.Boolean)
     
     store = db.relationship("Store", foreign_keys=store_id)
+
+    def __repr__(self):
+        return self.name
 
 
 class Order(db.Model):
@@ -76,19 +79,19 @@ class Order(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     created_at = db.Column("created_at", db.DateTime)
     completed = db.Column("completed", db.Boolean)
-    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
-    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.id"))
-    address_id = db.Column("address_id", db.Integer, db.ForeignKey("address.id") )
+    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.email"))
+    store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.name_store"))
     
     user = db.relationship("User", foreign_keys=user_id)
     store = db.relationship("Store", foreign_keys=store_id)
-    address = db.relationship("Address", foreign_keys=address_id)
 
+    def __repr__(self):
+        return f'{self.user_id} {self.created_at}'
 
 class OrderItems(db.Model):
     __tablename__ = "order_items"
-    order_id = db.Column("order_id", db.Integer, db.ForeignKey("order.id"))
-    items_id = db.Column("items_id", db.Integer, db.ForeignKey("items.id"))
+    order_id = db.Column("order_id", db.Integer, db.ForeignKey("order.created_at"))
+    items_id = db.Column("items_id", db.Integer, db.ForeignKey("items.name"))
     quant = db.Column("quant", db.Integer)
     id = db.Column("id", db.Integer, primary_key=True)
 
@@ -99,14 +102,17 @@ class OrderItems(db.Model):
 class Address(db.Model):
     __tablename__ = "address"
     id = db.Column("id", db.Integer, primary_key=True)
-    zip = db.Column("zip", db.Unicode)
+    zip_code = db.Column("zip_code", db.Unicode)
     state = db.Column("country", db.Unicode)
     city = db.Column("city", db.Unicode)
     address = db.Column("address", db.Unicode)
     number_house = db.Column("number_house", db.Unicode)
-    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.id"))
+    user_id = db.Column("user_id", db.Integer, db.ForeignKey("user.email"))
 
     user = db.relationship("User", foreign_keys=user_id)
+
+    def __repr__(self):
+        return self.zip_code
 
 
 class Checkout(db.Model):
@@ -116,6 +122,6 @@ class Checkout(db.Model):
     total = db.Column("total", db.Numeric)
     created_at = db.Column("created_at", db.DateTime)
     completed = db.Column("completed", db.Boolean)
-    order_id = db.Column("order_id", db.Integer, db.ForeignKey("order.id"))
+    order_id = db.Column("order_id", db.Integer, db.ForeignKey("order.created_at"))
 
     order = db.relationship("Order", foreign_keys=order_id)

@@ -23,24 +23,37 @@ class CategoryForm(FlaskForm):
     onmenu = wtf.BooleanField("On-menu")
 
 
+def category_query():
+    return Category.query
+
+def user_query():
+    return User.query
+
 class StoresForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
-    user_id = QuerySelectField("user_id", query_factory=lambda: User.query.all(), get_label='email')
-    category_id = QuerySelectField(query_factory=lambda: Category.query.all(), get_label='name')
+    #category_id = QuerySelectField(query_factory=category_query, allow_blank=False, get_label='name')
+    category_id = wtf.StringField("Categoria", [wtf.validators.DataRequired()])
+    active = wtf.BooleanField("Ativo", default=True)
 
 class ItemsForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
-    image = FileField("Image")
+    imagem = FileField("Imagem")
     price = wtf.FloatField("Preço", [wtf.validators.DataRequired()])
-    store_id = QuerySelectField('store_id', query_factory=lambda: Store.query.all())
+    #store_id = QuerySelectField('store_id', query_factory=lambda: Store.query.all())
+    store_id = wtf.StringField("Loja",[wtf.validators.DataRequired()])
     available = wtf.BooleanField("Disponivel", default=True)
 
 class AddressForm(FlaskForm):
-    zip = wtf.StringField("CEP", [wtf.validators.DataRequired()])
-    state = wtf.SelectField("Estado")               
-    city = wtf.SelectField("Cidade")               
+    zip_code = wtf.StringField("CEP", [wtf.validators.DataRequired()])
+    state = wtf.StringField("Estado")               
+    city = wtf.StringField("Cidade")                
     address= wtf.StringField("Endereço", [wtf.validators.DataRequired()])
     number_house= wtf.IntegerField("N°", [wtf.validators.DataRequired()])
+
+class OrderForm(FlaskForm):
+    created_at = wtf.StringField("Data e Hora")
+    completed = wtf.BooleanField("Comprado")
+    store_id = wtf.StringField("Loja", [wtf.validators.DataRequired()])
 
 class OrderItemsForm(FlaskForm):
     order_id = QuerySelectField("order_id", query_factory=lambda: Order.query.all())

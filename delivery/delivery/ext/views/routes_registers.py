@@ -1,7 +1,8 @@
-from flask import Blueprint, render_template, redirect, url_for, flash  
+from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
-from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm, OrderItemsForm
-from delivery.ext.auth.controller import create_category, create_item, create_store, create_address
+from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm, OrderForm, OrderItemsForm
+from delivery.ext.auth.controller import create_category, create_item, create_store, create_address, create_order, save_user_picture
+from datetime import datetime
 
 category = Blueprint("cate", __name__)
 
@@ -37,13 +38,18 @@ def register_store():
     store = StoresForm()
 
     if store.validate_on_submit():
-        create_store(
-            name_store=store.name_store.data,
-            user_id=store.user_id.data,
-            category_id=store.category_id.data
-        )
-        flash('Nice', 'sucess')
-        return redirect(url_for('.register_store'))
+        try:
+            create_store(
+                name_store=store.name_store.data,
+                user_id=current_user.email,
+                category_id=store.category_id.data,
+                active = store.active.data
+            )
+            flash('Estabelecimento registrado com sucesso!', 'success')
+            return redirect(url_for('.register_store'))
+        except Exception:
+            flash('Esse estabelecimento já foi registrado. Cadastre outro!', 'warning')
+            return redirect(url_for('.register_store'))
 
     return render_template("stores.html", store=store)
 
@@ -56,11 +62,16 @@ def register_items():
     if item.validate_on_submit():  
         create_item(
             name=item.name.data,
-            image=item.image.data,
             price=item.price.data,
             store_id=item.store_id.data,
             available=item.available.data,
         )
+        imagem = request.files.get('imagem')
+        if imagem:
+            save_user_picture(
+                imagem.filename,
+                imagem
+            )
         flash('Item registrado com sucesso!', 'success')
         return redirect(url_for('.register_items'))
 
@@ -70,24 +81,47 @@ def register_items():
 @login_required
 def register_address():
     addres = AddressForm()
-
+    
     if addres.validate_on_submit():
         try:
             create_address(
-                zip = addres.zip.data,
-                state = addres.state.data,
-                city = addres.city.data,
-                address = addres.address.data,
-                number_house = addres.number_house.data,
-                #user_id = current_user.id
+                zip_code=addres.zip_code.data,
+                state=addres.state.data,
+                city=addres.city.data,
+                address=addres.address.data,
+                number_house=addres.number_house.data,
+                user_id=current_user.email
             )
-            flash('Nice', 'success')
+            flash('Endereço registrado com sucesso!', 'success')
             return redirect(url_for('.register_address'))
         except Exception:
-            flash('Deu bosta', 'warning')
+            flash('Algo deu errado tente novamente!','warning')
             return redirect(url_for('.register_address'))
 
     return render_template("address.html", addres=addres)
+
+@category.route('/order', methods=['GET', 'POST'])
+@login_required
+def register_order():
+    order = OrderForm()
+    
+    if order.validate_on_submit():
+        try:
+            create_order(
+                created_at=datetime.now(),
+                completed=order.completed.data,
+                user_id=current_user.email,
+                store_id=order.store_id.data,
+            )
+            flash('Ordem de compra registrada com sucesso!', 'success')
+            return redirect(url_for('.register_order'))
+        except Exception:
+            flash('Algo deu errado tente novamente!','warning')
+            return redirect(url_for('.register_order'))
+
+    return render_template("order.html", order=order)
+
+
 
 @category.route('/order_items', methods=['GET', 'POST'])
 @login_required

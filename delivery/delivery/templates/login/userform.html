@@ -4,75 +4,73 @@
 
 
 <section class="hero is-primary">
-<div class="hero-body">
-    <div class="container">
-        <h1>Cadastra-se no...</h1>
+    <div class="hero-body">
+        <div class="container">
+            <h1>Cadastra-se no...</h1>
+        </div>
     </div>
-</div>
 </section>
 {% endblock %}
 
 {% block main %}
 <form action='{{url_for("main.signup")}}' method='post' enctype='multipart/form-data'>
-<div class="col-md-3 col-md-offset-4">
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
+    <div class="col-md-3 col-md-offset-4">
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
         <ul class="flashes">
-        {% for category, message in messages %}
+            {% for category, message in messages %}
             <li class="alert alert-{{category}}">{{ message }}</li>
-        {% endfor %}
+            {% endfor %}
         </ul>
-    {% endif %}
-    {% endwith %}        
-  
-    {{form.csrf_token}}
-    
-    <div class="field">
-        <label class="label">Name</label>
-        <div class="control">
-            {{form.name(class="form-control", placeholder="Name")}}
-        </div>
-    </div>
+        {% endif %}
+        {% endwith %}
 
-    <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-            {{form.email(class="input is-success", type="email", placeholder="Email")}}
-            <span class="icon is-small is-left">
-                <i class="fas fa-envelope"></i>
-            </span>
-            {% if form.errors.email %}
+        {{form.csrf_token}}
+
+        <div class="field">
+            <label class="label">Name</label>
+            <div class="control">
+                {{form.name(class="form-control", placeholder="Name")}}
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Email</label>
+            <div class="control has-icons-left has-icons-right">
+                {{form.email(class="input is-success", type="email", placeholder="Email")}}
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                {% if form.errors.email %}
                 {% for e in form.errors.email %}
-                    <p class="help is-danger">{{ e }}</p>
+                <p class="help is-danger">{{ e }}</p>
                 {% endfor %}
-            {% endif %}    
+                {% endif %}
+            </div>
         </div>
-    </div>
 
-    
-    <div class="field">
-        <label class="label">Senha</label>
+
+        <div class="field">
+            <label class="label">Senha</label>
+            <div class="control">
+                {{form.password(class="form-control", placeholder="Senha")}}
+            </div>
+        </div>
+
+        <label class="label">Foto</label>
+        <figure class="thumb col-md-4">
+            <img class="img-responsive">
+            <figcaption>
+                <label class="fileContainer">
+                    {{form.foto(class="btn btn-link")}}
+                </label>
+            </figcaption>
+        </figure>
+
         <div class="control">
-            {{form.password(class="form-control", placeholder="Senha")}}       
+            <input class="btn btn-info" type="submit" value="Cadastrar">
         </div>
     </div>
-
-    <label class="label">Foto</label>         
-    <figure class="thumb col-md-4">
-        <img class="img-responsive">
-        <figcaption>
-          <label class="fileContainer">
-            {{form.foto(class="btn btn-link")}}
-          </label>
-        </figcaption>
-      </figure>
-
-    <div class="control">
-        <input class="btn btn-info" type="submit" value="Cadastrar">
-    </div>     
-</div>
 </form>
 {% endblock %}
-
-

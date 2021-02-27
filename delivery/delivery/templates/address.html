@@ -15,8 +15,8 @@
 {% block main %}
 <form action='{{url_for("cate.register_address")}}' method='post' enctype='multipart/cate-data'>
     <div class="col-md-7 col-md-offset-4">
-        <div class="columns">
-            <div class="column">
+        
+            
 
                 {% with messages = get_flashed_messages(with_categories=true) %}
                 {% if messages %}
@@ -32,7 +32,7 @@
 
                 <div class="form-group">
                     <label>CEP</label>
-                    {{ addres.zip(class="form-control", type="number", placeholder="CEP") }}
+                    {{ addres.zip_code(class="form-control", placeholder="CEP") }}
                     {% if addres.errors.password %}
                     <div class="alert alert-danger" role="alert">
                         <ul>
@@ -53,13 +53,7 @@
                     <label>Cidade</label>
                     {{ addres.city(class="form-control") }}
                 </div>
-                <div class="control">
-                    <input class="button is-link" type="submit" value="Cadastrar">
-                    <button class="button is-link is-light"><a href="{{ url_for('page.index')}}">Voltar</a></button>
-                </div>
-            </div>
 
-            <div class="column">
                 <div class="form-group">
                     <label>Endereço</label>
                     {{ addres.address(class="form-control", placeholder="Endereço") }}
@@ -76,7 +70,7 @@
 
                 <div class="form-group">
                     <label>Número da casa</label>
-                    {{ addres.number_house(class="form-control", type="number", placeholder="N°") }}
+                    {{ addres.number_house(class="form-control", placeholder="N°") }}
                     {% if addres.errors.password %}
                     <div class="alert alert-danger" role="alert">
                         <ul>
@@ -87,9 +81,14 @@
                     </div>
                     {% endif %}
                 </div>
-            </div>
+                
+                <div class="control">
+                    <input class="button is-link" type="submit" value="Cadastrar">
+                    <button class="button is-link is-light"><a href="{{ url_for('page.index')}}">Voltar</a></button>
+                </div>
+            
 
-        </div>
+       
     </div>
 </form>
 {% endblock %}
