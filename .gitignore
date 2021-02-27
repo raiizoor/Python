@@ -1,5 +1,6 @@
 # files and photos
 **/*.jpg
+**/*.jpeg
 **/*.png
 
 # Byte-compiled / optimized / DLL files
