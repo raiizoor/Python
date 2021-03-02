@@ -13,17 +13,6 @@
 
 {% block main %}
 <div class="col-md-3 col-md-offset-4">
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="flashes">
-            {% for message in messages %}
-                <li class="alert alert-danger">{{ message }}</li>
-            {% endfor %}
-            </ul>
-        {% endif %}
-        {% endwith %}
-    </div>   
     <form action='{{url_for("main.login")}}' method='post' enctype='multipart/form-data'>
         {{form.csrf_token}}
 

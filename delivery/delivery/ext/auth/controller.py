@@ -57,7 +57,7 @@ def create_user(name: str, email: str, password: str, admin:bool = False) -> Use
     db.session.commit()
     return user
     
-def create_category(name: str, on_menu: bool = False) -> Category:
+def create_category(name: str, on_menu: bool) -> Category:
     category = Category(
         name = name,
         on_menu = on_menu

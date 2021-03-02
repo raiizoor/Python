@@ -73,7 +73,7 @@
 
           <div class="navbar-dropdown">
 
-            <a class="navbar-item" href="{{ url_for('cate.register_category') }}">
+            <a class="navbar-item" href="{{ url_for('cate.list_category') }}">
               Categoria
             </a>
             <a class="navbar-item" href="{{ url_for('cate.register_store') }}">
@@ -133,20 +133,25 @@
   {% block top %} {% endblock top %}
 
   
-  {% with messages = get_flashed_messages(with_categories=true) %}
-  {% if messages %}
-  <ul class="flashes">
-      {% for category, message in messages %}
-      <li class="alert alert-{{category}}">{{ message }}</li>
-      {% endfor %}
-  </ul>
-  {% endif %}
-  {% endwith %}
+
 
   <section class="section">
     <div class="container">
 
+      <div class="col-md-3">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for category, message in messages %}
+            <li class="alert alert-{{category}}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+      </div>
       {% block main %} {% endblock main %}
+
+      
     </div>
   </section>
 

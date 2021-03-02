@@ -23,7 +23,7 @@ def add_user(name, email, password, admin):
         click.echo("Usuário já existe!")
 
 @click.option("--name", "-s")
-@click.option("--on_menu", "-a", is_flag=True, default=False)
+@click.option("--on_menu", "-a", is_flag=True, default=True)
 def add_category(name, on_menu):
     """Adicionando nova categoria"""
     try:

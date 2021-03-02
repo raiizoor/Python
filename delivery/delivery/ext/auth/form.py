@@ -20,7 +20,7 @@ class LoginForm(FlaskForm):
 
 class CategoryForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
-    onmenu = wtf.BooleanField("On-menu")
+    on_menu = wtf.BooleanField("On-menu", default=True)
 
 
 def category_query():

@@ -12,6 +12,11 @@ category = Blueprint("cate", __name__)
 def page():
     return render_template('login.html')
 
+@category.route('/lista_categoria', methods=['GET', 'POST'])
+@login_required
+def list_category():
+
+    return render_template('category/list_category.html')
 
 @category.route('/categoria', methods=['GET', 'POST'])
 @login_required
@@ -22,6 +27,7 @@ def register_category():
         try:
             create_category(
                 name=cate.name.data,
+                on_menu=cate.on_menu.data
             )
             flash('Categoria registrada com sucesso!', 'success')
             return redirect(url_for('.register_category'))
@@ -29,8 +35,19 @@ def register_category():
             flash('Essa categoria já existe, registre outra!', 'warning')
             return redirect(url_for('.register_category'))
 
-    return render_template("categoria.html", cate=cate)
+    return render_template("category/register_category.html", cate=cate)
 
+@category.route('/editar_categoria', methods=['GET', 'POST'])
+@login_required
+def edit_category():
+    
+
+    return render_template('category/edit_category.html')
+
+@category.route('/deletar_categoria', methods=['GET', 'POST'])
+@login_required
+def delete_category():
+    pass
 
 @category.route('/loja', methods=['GET', 'POST'])
 @login_required
@@ -51,7 +68,7 @@ def register_store():
             flash('Esse estabelecimento já foi registrado. Cadastre outro!', 'warning')
             return redirect(url_for('.register_store'))
 
-    return render_template("stores.html", store=store)
+    return render_template("store.html", store=store)
 
 
 @category.route('/items', methods=['GET', 'POST'])

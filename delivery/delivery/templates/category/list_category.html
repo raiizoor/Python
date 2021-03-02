@@ -1,0 +1,42 @@
+{% extends "index.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1>Lista das Categorias<h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for category in categorys %}
+        <tr>
+            <td>{{category.name}}</td>
+            <td>
+                <a href="{{url_for('cate.edit_category')}}">Editar</a>
+                <a href="{{delete_category}}">Deletar</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="{{ url_for('cate.register_category') }}">Nova Categoria</a>
+{% endblock %}
+{% endblock %}
