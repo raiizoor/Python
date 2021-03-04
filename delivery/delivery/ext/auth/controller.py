@@ -15,6 +15,11 @@ from delivery.ext.db import db, models
 
 ALG = "pbkdf2:sha256"
 
+def del_category(self, id):
+    category = Category.id
+    db.session.delete(category)
+    db.session.commit()
+
 
 def list_users():
     """Lista de usuários registrados"""

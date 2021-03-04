@@ -76,19 +76,19 @@
             <a class="navbar-item" href="{{ url_for('cate.list_category') }}">
               Categoria
             </a>
-            <a class="navbar-item" href="{{ url_for('cate.register_store') }}">
+            <a class="navbar-item" href="{{ url_for('cate.list_store') }}">
               Loja
             </a>
-            <a class="navbar-item" href="{{ url_for('cate.register_items') }}">
+            <a class="navbar-item" href="{{ url_for('cate.list_items') }}">
               Itens
             </a>
-            <a class="navbar-item" href="{{ url_for('cate.register_address') }}">
+            <a class="navbar-item" href="{{ url_for('cate.list_address') }}">
               Endereço
             </a>
-            <a class="navbar-item" href="{{ url_for('cate.register_order') }}">
+            <a class="navbar-item" href="{{ url_for('cate.list_order') }}">
               Compra
             </a>
-            <a class="navbar-item" href="{{ url_for('cate.register_order_items') }}">
+            <a class="navbar-item" href="{{ url_for('cate.list_order_items') }}">
               Ordem de Itens
             </a>
             <hr class="navbar-divider">
@@ -132,7 +132,7 @@
 
   {% block top %} {% endblock top %}
 
-  
+
 
 
   <section class="section">
@@ -142,16 +142,16 @@
         {% with messages = get_flashed_messages(with_categories=true) %}
         {% if messages %}
         <ul class="flashes">
-            {% for category, message in messages %}
-            <li class="alert alert-{{category}}">{{ message }}</li>
-            {% endfor %}
+          {% for category, message in messages %}
+          <li class="alert alert-{{category}}">{{ message }}</li>
+          {% endfor %}
         </ul>
         {% endif %}
         {% endwith %}
       </div>
+
       {% block main %} {% endblock main %}
 
-      
     </div>
   </section>
 

@@ -1,0 +1,45 @@
+{% extends "index.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1>Lista das lojas<h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Ordem</th>
+            <th>Items</th>
+            <th>Quantidade</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for order_items in order_item %}
+        <tr>
+            <td>{{order_items.order_id}}</td>
+            <td>{{order_items.items_id}}</td>
+            <td>{{order_items.quant}}</td>
+            <td>
+                <a href="{{url_for('cate.edit_order_items')}}">Editar</a>
+                <a href="{{url_for('cate.delete_order_items')}}">Deletar</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="{{ url_for('cate.register_order') }}">Nova Categoria</a>
+{% endblock %}
+{% endblock %}

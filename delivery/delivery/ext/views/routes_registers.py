@@ -1,8 +1,9 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_required, current_user
 from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm, OrderForm, OrderItemsForm
-from delivery.ext.auth.controller import create_category, create_item, create_store, create_address, create_order, save_user_picture
+from delivery.ext.auth.controller import create_category, create_item, create_store, create_address, create_order, save_user_picture, del_category
 from datetime import datetime
+from delivery.ext.db.models import Category, Store, Items, Address, Order, OrderItems
 
 category = Blueprint("cate", __name__)
 
@@ -15,8 +16,8 @@ def page():
 @category.route('/lista_categoria', methods=['GET', 'POST'])
 @login_required
 def list_category():
-
-    return render_template('category/list_category.html')
+    categorys = Category.query.all()
+    return render_template('category/list_category.html', categorys=categorys)
 
 @category.route('/categoria', methods=['GET', 'POST'])
 @login_required
@@ -44,10 +45,29 @@ def edit_category():
 
     return render_template('category/edit_category.html')
 
-@category.route('/deletar_categoria', methods=['GET', 'POST'])
+@category.route('/deletar_categoria')
 @login_required
-def delete_category():
+def delete_category(id):
+    del_category(id)
+    flash('categoria deletada!')
+    return redirect(url_for('.list_category'))
+
+@category.route('/lista_loja', methods=['GET', 'POST'])
+@login_required
+def list_store():
+    stores = Store.query.all()
+    return render_template('store/list_store.html', stores=stores)
+
+@category.route('/deletar_loja', methods=['GET', 'POST'])
+@login_required
+def delete_store():
     pass
+
+@category.route('/editar_loja', methods=['GET', 'POST'])
+@login_required
+def edit_store():
+
+    return render_template('store/edit_store.html')
 
 @category.route('/loja', methods=['GET', 'POST'])
 @login_required
@@ -68,8 +88,24 @@ def register_store():
             flash('Esse estabelecimento já foi registrado. Cadastre outro!', 'warning')
             return redirect(url_for('.register_store'))
 
-    return render_template("store.html", store=store)
+    return render_template("store/register_store.html", store=store)
 
+@category.route('/lista_itens', methods=['GET', 'POST'])
+@login_required
+def list_items():
+    item = Items.query.all()
+    return render_template('items/list_items.html', item=item)
+
+@category.route('/editar_itens', methods=['GET', 'POST'])
+@login_required
+def edit_items():
+
+    return render_template('items/edit_items.html')
+
+@category.route('/editar_itens', methods=['GET', 'POST'])
+@login_required
+def delete_items():
+    pass
 
 @category.route('/items', methods=['GET', 'POST'])
 @login_required
@@ -92,9 +128,26 @@ def register_items():
         flash('Item registrado com sucesso!', 'success')
         return redirect(url_for('.register_items'))
 
-    return render_template("items.html", item=item)
+    return render_template("items/register_items.html", item=item)
 
-@category.route('/address', methods=['GET', 'POST'])
+@category.route('/lista_endereço', methods=['GET', 'POST'])
+@login_required
+def list_address():
+    addresses = Address.query.all()
+    return render_template('address/list_address.html', addresses=addresses)
+
+@category.route('/editar_endereço', methods=['GET', 'POST'])
+@login_required
+def edit_address():
+
+    return render_template('address/edit_address.html')
+
+@category.route('/deletar_endereço', methods=['GET', 'POST'])
+@login_required
+def delete_address():
+    pass
+
+@category.route('/endereço', methods=['GET', 'POST'])
 @login_required
 def register_address():
     addres = AddressForm()
@@ -115,9 +168,26 @@ def register_address():
             flash('Algo deu errado tente novamente!','warning')
             return redirect(url_for('.register_address'))
 
-    return render_template("address.html", addres=addres)
+    return render_template("address/register_address.html", addres=addres)
 
-@category.route('/order', methods=['GET', 'POST'])
+@category.route('/lista_ordem', methods=['GET', 'POST'])
+@login_required
+def list_order():
+    orders = Order.query.all()
+    return render_template('order/list_order.html', orders=orders)
+
+@category.route('/editar_ordem', methods=['GET', 'POST'])
+@login_required
+def edit_order():
+
+    return render_template('order/edit_order.html')
+
+@category.route('/deletar_ordem', methods=['GET', 'POST'])
+@login_required
+def delete_order():
+    pass
+
+@category.route('/ordem', methods=['GET', 'POST'])
 @login_required
 def register_order():
     order = OrderForm()
@@ -136,13 +206,28 @@ def register_order():
             flash('Algo deu errado tente novamente!','warning')
             return redirect(url_for('.register_order'))
 
-    return render_template("order.html", order=order)
+    return render_template("order/register_order.html", order=order)
 
+@category.route('/lista_order_itens', methods=['GET', 'POST'])
+@login_required
+def list_order_items():
+    order_item = OrderItems.query.all()
+    return render_template('order_items/list_order_items.html', order_item=order_item)
 
+@category.route('/editar_order_itens', methods=['GET', 'POST'])
+@login_required
+def edit_order_items():
 
-@category.route('/order_items', methods=['GET', 'POST'])
+    return render_template('order_items/edit_order_items.html')
+
+@category.route('/deletar_order_itens', methods=['GET', 'POST'])
+@login_required
+def delete_order_items():
+    pass
+
+@category.route('/ordem_itens', methods=['GET', 'POST'])
 @login_required
 def register_order_items():
     order_items = OrderItemsForm()
 
-    return render_template("order_items.html", order_items=order_items)
+    return render_template("order_items/register_order_items.html", order_items=order_items)

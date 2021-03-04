@@ -1,0 +1,48 @@
+{% extends "index.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1>Lista das lojas<h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Tipo do item</th>
+            <th>Valor</th>
+            <th>Loja</th>
+            <th>Disponível</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for items in item %}
+        <tr>
+            <td>{{items.name}}</td>
+            <td>{{items.price}}</td>
+            <td>{{items.store_id}}</td>
+            <td>{{items.available}}</td>
+            <td>
+                <a href="{{url_for('cate.edit_items')}}">Editar</a>
+                <a href="{{url_for('cate.delete_items')}}">Deletar</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="{{ url_for('cate.register_items') }}">Nova Categoria</a>
+{% endblock %}
+{% endblock %}

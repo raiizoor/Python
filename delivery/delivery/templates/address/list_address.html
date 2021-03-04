@@ -1,0 +1,52 @@
+{% extends "index.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1>Lista das lojas<h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+
+{% block content %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>CEP</th>
+            <th>Estado</th>
+            <th>Cidade</th>
+            <th>Endereço</th>
+            <th>Número da residência</th>
+            <th>Email do usuário</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for address in addresses %}
+        <tr>
+            <td>{{address.zip_code}}</td>
+            <td>{{address.state}}</td>
+            <td>{{address.city}}</td>
+            <td>{{address.address}}</td>
+            <td>{{address.number_house}}</td>
+            <td>{{address.user_id}}</td>
+            <td>
+                <a href="{{url_for('cate.edit_address')}}">Editar</a>
+                <a href="{{url_for('cate.delete_address')}}">Deletar</a>
+            </td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+
+<a class="btn btn-primary" href="{{ url_for('cate.register_address') }}">Nova Categoria</a>
+{% endblock %}
+{% endblock %}

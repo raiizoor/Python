@@ -6,7 +6,7 @@
 <section class="hero is-primary">
     <div class="hero-body">
         <div class="container">
-            <h1>Lista das Categorias<h1>
+            <h1>Lista das lojas<h1>
         </div>
     </div>
 </section>
@@ -18,19 +18,19 @@
 <table class="table">
     <thead>
         <tr>
-            <th>Nome</th>
-            <th>No menu</th>
+            <th>Loja</th>
+            <th>Comprar agora?</th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-        {% for category in categorys %}
+        {% for order in orders %}
         <tr>
-            <td>{{category.name}}</td>
-            <td>{{category.on_menu}}</td>
+            <td>{{order.store_id}}</td>
+            <td>{{order.completed}}</td>
             <td>
-                <a href="{{url_for('cate.edit_category')}}">Editar</a>
-                <a href="{{url_for('cate.delete_category')}}">Deletar</a>
+                <a href="{{url_for('cate.edit_order')}}">Editar</a>
+                <a href="{{url_for('cate.delete_order')}}">Deletar</a>
             </td>
 
         </tr>
@@ -39,6 +39,6 @@
 </table>
 
 
-<a class="btn btn-primary" href="{{ url_for('cate.register_category') }}">Nova Categoria</a>
+<a class="btn btn-primary" href="{{ url_for('cate.register_order') }}">Nova Categoria</a>
 {% endblock %}
 {% endblock %}
