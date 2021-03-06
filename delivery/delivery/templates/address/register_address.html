@@ -13,15 +13,15 @@
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_address")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_address")}}' method='post' enctype='multipart/form-data'>
     <div class="col-md-7 col-md-offset-4">
 
-        {{addres.csrf_token}}
+        {{form.csrf_token}}
 
         <div class="form-group">
             <label>CEP</label>
-            {{ addres.zip_code(class="form-control", placeholder="CEP") }}
-            {% if addres.errors.password %}
+            {{ form.zip_code(class="form-control", placeholder="CEP") }}
+            {% if form.errors.password %}
             <div class="alert alert-danger" role="alert">
                 <ul>
                     {% for e in cate.errors.password %}
@@ -34,18 +34,18 @@
 
         <div class="form-group">
             <label>Estado</label>
-            {{ addres.state(class="form-control") }}
+            {{ form.state(class="form-control") }}
         </div>
 
         <div class="form-group">
             <label>Cidade</label>
-            {{ addres.city(class="form-control") }}
+            {{ form.city(class="form-control") }}
         </div>
 
         <div class="form-group">
             <label>Endereço</label>
-            {{ addres.address(class="form-control", placeholder="Endereço") }}
-            {% if addres.errors.password %}
+            {{ form.address(class="form-control", placeholder="Endereço") }}
+            {% if form.errors.password %}
             <div class="alert alert-danger" role="alert">
                 <ul>
                     {% for e in cate.errors.password %}
@@ -58,8 +58,8 @@
 
         <div class="form-group">
             <label>Número da casa</label>
-            {{ addres.number_house(class="form-control", placeholder="N°") }}
-            {% if addres.errors.password %}
+            {{ form.number_house(class="form-control", placeholder="N°") }}
+            {% if form.errors.password %}
             <div class="alert alert-danger" role="alert">
                 <ul>
                     {% for e in cate.errors.password %}

@@ -13,18 +13,18 @@
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_order")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_order")}}' method='post' enctype='multipart/form-data'>
     <div class="col-md-3 col-md-offset-4">
 
-        {{order.csrf_token}}
+        {{form.csrf_token}}
 
         <div class="form-group">
             <label>Estabelecimento: </label>
-            {{ order.store_id(class="form-control", placeholder="Estabelecimento que comprou") }}
-            {% if order.errors.name %}
+            {{ form.store_id(class="form-control", placeholder="Estabelecimento que comprou") }}
+            {% if form.errors.name %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in order.errors.name %}
+                    {% for e in form.errors.name %}
                     <li>{{ e }}</li>
                     {% endfor %}
                 </ul>
@@ -34,11 +34,11 @@
 
         <div class="form-group">
             <label>Comprar agora? </label>
-            {{ order.completed(class="checkbox", type="checkbox") }}
-            {% if order.errors.available %}
+            {{ form.completed(class="checkbox", type="checkbox") }}
+            {% if form.errors.available %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in order.errors.available %}
+                    {% for e in form.errors.available %}
                     <li>{{ e }}</li>
                     {% endfor %}
                 </ul>   

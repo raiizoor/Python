@@ -131,7 +131,7 @@ def save_user_picture(filename, filestore):
         secure_filename(filename)
     )
     filestore.save(filename)
-    imgresizer(filename)
+    #imgresizer(filename) this will decrease image
     #TODO: 
     #1) Verificar se o diretório existe.
     #2) criar o diretório se não existir
@@ -140,6 +140,6 @@ def imgresizer(path):
     img = cv2.imread(path)
     img = cv2.resize(img,(128,128))
     path = path[0:-4]
-    cv2.imwrite(path+"reduced.png",img)
+    cv2.imwrite(path+"_reduced.png",img)
 # Use nesta funcao o parametro caminho absoluto
 #ex: imgresizer("C:/Users/e-ron/code/Web-delivery/delivery/uploads/teste.jpg")

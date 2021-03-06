@@ -37,7 +37,7 @@ def signup():
                         foto.filename,
                         foto
                     )
-            flash('Cadastrado com Sucesso! Por favor faça o login.')
+            flash('Cadastrado com Sucesso! Por favor faça o login.', 'success')
             return redirect(url_for(".login"))
         except Exception:
             flash("Este email já esta cadastrado!   ", "danger")

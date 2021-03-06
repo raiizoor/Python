@@ -13,23 +13,23 @@
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_items")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_items")}}' method='post' enctype='multipart/form-data'>
     <div class="col-md-3 col-md-offset-4">
 
-        {{item.csrf_token}}
+        {{form.csrf_token}}
 
         <div class="form-group">
             <label>Selecione uma loja</label>
-            {{item.store_id(class="form-control")}}
+            {{form.store_id(class="form-control")}}
         </div>
 
         <div class="form-group">
             <label>Nome</label>
-            {{ item.name(class="form-control", placeholder="Nome") }}
-            {% if item.errors.name %}
+            {{ form.name(class="form-control", placeholder="Nome") }}
+            {% if form.errors.name %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in item.errors.name %}
+                    {% for e in form.errors.name %}
                     <li>{{ e }}</li>
                     {% endfor %}
                 </ul>
@@ -42,7 +42,7 @@
             <figure class="thumb col-md-4">
                 <figcaption>
                     <label class="fileContainer">
-                        {{item.imagem(class="btn btn-link")}}
+                        {{form.image(class="btn btn-link")}}
                     </label>
                 </figcaption>
             </figure>
@@ -60,11 +60,11 @@
                     </span>
                 </p>
                 <p class="control is-expanded">
-                    {{ item.price(class="input", type="number", placeholder="Valor") }}
-                    {% if item.errors.price %}
+                    {{ form.price(class="input", type="number", placeholder="Valor") }}
+                    {% if form.errors.price %}
                 <div class="alert alert-danger" role="alert">
                     <ul>
-                        {% for e in item.errors.price %}
+                        {% for e in form.errors.price %}
                         <li>{{ e }}</li>
                         {% endfor %}
                     </ul>
@@ -76,11 +76,11 @@
 
         <div class="form-group">
             <label>Disponível </label>
-            {{ item.available(class="checkbox", type="checkbox") }}
-            {% if item.errors.available %}
+            {{ form.available(class="checkbox", type="checkbox") }}
+            {% if form.errors.available %}
             <div class="alert alert-danger" role="alert">
                 <ul>
-                    {% for e in item.errors.available %}
+                    {% for e in form.errors.available %}
                     <li>{{ e }}</li>
                     {% endfor %}
                 </ul>

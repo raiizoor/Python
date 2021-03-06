@@ -13,25 +13,25 @@
 {% endblock %}
 
 {% block main %}
-<form action='{{url_for("cate.register_order_items")}}' method='post' enctype='multipart/cate-data'>
+<form action='{{url_for("cate.register_order_items")}}' method='post' enctype='multipart/form-data'>
 <div class="col-md-3 col-md-offset-4">
     
-    {{order_items.csrf_token}}
+    {{form.csrf_token}}
 
     <div class="form-group">
         <label>Ordens </label>
-        {{ order_items.order_id(class="form-control") }}
+        {{ form.order_id(class="form-control") }}
     </div>
 
     <div class="form-group">
         <label>Itens </label>
-        {{ order_items.items_id(class="form-control") }}
+        {{ form.items_id(class="form-control") }}
     </div>
 
     <div class="form-group">
         <label>Quantidade </label>
-        {{ order_items.quant(class="form-control", type="number", placeholder="Quantidade") }}
-        {% if order_items.errors.password %}
+        {{ form.quant(class="form-control", type="number", placeholder="Quantidade") }}
+        {% if form.errors.password %}
         <div class="alert alert-danger" role="alert">
             <ul>
                 {% for e in cate.errors.password %}

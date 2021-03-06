@@ -63,7 +63,7 @@ class Items(db.Model):
     __tablename__ = "items"
     id = db.Column("id", db.Integer, primary_key=True)
     name = db.Column("name", db.Unicode)
-    #image = db.Column("image", db.Unicode)
+    image = db.Column("image", db.Unicode)
     price = db.Column("price", db.Float)
     store_id = db.Column("store_id", db.Integer, db.ForeignKey("store.name_store"))
     available = db.Column("available", db.Boolean)

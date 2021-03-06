@@ -37,11 +37,12 @@ class StoresForm(FlaskForm):
 
 class ItemsForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
-    imagem = FileField("Imagem")
+    image = FileField("Image")
     price = wtf.FloatField("Preço", [wtf.validators.DataRequired()])
     #store_id = QuerySelectField('store_id', query_factory=lambda: Store.query.all())
     store_id = wtf.StringField("Loja",[wtf.validators.DataRequired()])
     available = wtf.BooleanField("Disponivel", default=True)
+    
 
 class AddressForm(FlaskForm):
     zip_code = wtf.StringField("CEP", [wtf.validators.DataRequired()])
