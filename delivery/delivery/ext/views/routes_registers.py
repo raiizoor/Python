@@ -80,7 +80,7 @@ def register_store():
             create_store(
                 name_store=form.name_store.data,
                 user_id=current_user.email,
-                category_id=form.category_id.data,
+                category_id=form.category_id.data.name,
                 active = form.active.data
             )
             flash('Estabelecimento registrado com sucesso!', 'success')
@@ -118,7 +118,7 @@ def register_items():
             create_item(
                 name=form.name.data,
                 price=form.price.data,
-                store_id=form.store_id.data,
+                store_id=form.store_id.data.name_store,
                 available=form.available.data,
             )
             image = request.files.get('image')
@@ -204,7 +204,7 @@ def register_order():
                 created_at=datetime.now(),
                 completed=form.completed.data,
                 user_id=current_user.email,
-                store_id=form.store_id.data,
+                store_id=form.store_id.data.name_store
             )
             flash('Ordem de compra registrada com sucesso!', 'success')
             return redirect(url_for('.register_order'))

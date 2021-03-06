@@ -31,16 +31,15 @@ def user_query():
 
 class StoresForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
-    #category_id = QuerySelectField(query_factory=category_query, allow_blank=False, get_label='name')
-    category_id = wtf.StringField("Categoria", [wtf.validators.DataRequired()])
+    category_id = QuerySelectField(query_factory=lambda: Category.query.all(), allow_blank=False, get_label='name')
+    #category_id = wtf.StringField("Categoria", [wtf.validators.DataRequired()])
     active = wtf.BooleanField("Ativo", default=True)
 
 class ItemsForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
     image = FileField("Image")
     price = wtf.FloatField("Preço", [wtf.validators.DataRequired()])
-    #store_id = QuerySelectField('store_id', query_factory=lambda: Store.query.all())
-    store_id = wtf.StringField("Loja",[wtf.validators.DataRequired()])
+    store_id = QuerySelectField('ID da loja', query_factory=lambda: Store.query.all())
     available = wtf.BooleanField("Disponivel", default=True)
     
 
@@ -54,9 +53,9 @@ class AddressForm(FlaskForm):
 class OrderForm(FlaskForm):
     created_at = wtf.StringField("Data e Hora")
     completed = wtf.BooleanField("Comprado")
-    store_id = wtf.StringField("Loja", [wtf.validators.DataRequired()])
+    store_id = QuerySelectField("ID da Loja", query_factory=lambda: Store.query.all())
 
 class OrderItemsForm(FlaskForm):
-    order_id = QuerySelectField("order_id", query_factory=lambda: Order.query.all())
-    items_id = QuerySelectField("items_id", query_factory=lambda: Items.query.all())
+    order_id = QuerySelectField("ID ordem de compra", query_factory=lambda: Order.query.all())
+    items_id = QuerySelectField("ID do tipo de menu", query_factory=lambda: Items.query.all())
     quant = wtf.IntegerField("Quantidade", [wtf.validators.DataRequired()])
