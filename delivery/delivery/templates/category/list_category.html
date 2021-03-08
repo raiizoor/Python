@@ -29,7 +29,7 @@
             <td>{{category.name}}</td>
             <td>{{category.on_menu}}</td>
             <td>
-                <a href="{{url_for('cate.edit_category')}}">Editar</a>
+                <a href="{{url_for('cate.edit_category', id=category.id)}}">Editar</a>
                 <a href="{{url_for('cate.delete_category', id=category.id)}}">Deletar</a>
             </td>
 
