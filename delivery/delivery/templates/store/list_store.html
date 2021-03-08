@@ -34,7 +34,7 @@
             <td>{{store.active}}</td>
             <td>
                 <a href="{{url_for('cate.edit_store')}}">Editar</a>
-                <a href="{{url_for('cate.delete_store')}}">Deletar</a>
+                <a href="{{url_for('cate.delete_store', id=store.id)}}">Deletar</a>
             </td>
 
         </tr>

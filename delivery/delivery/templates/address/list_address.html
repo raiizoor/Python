@@ -38,7 +38,7 @@
             <td>{{address.user_id}}</td>
             <td>
                 <a href="{{url_for('cate.edit_address')}}">Editar</a>
-                <a href="{{url_for('cate.delete_address')}}">Deletar</a>
+                <a href="{{url_for('cate.delete_address', id=address.id)}}">Deletar</a>
             </td>
 
         </tr>

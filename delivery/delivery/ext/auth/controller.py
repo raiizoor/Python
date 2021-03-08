@@ -15,12 +15,6 @@ from delivery.ext.db import db, models
 
 ALG = "pbkdf2:sha256"
 
-def del_category(self, id):
-    category = Category.id
-    db.session.delete(category)
-    db.session.commit()
-
-
 def list_users():
     """Lista de usuários registrados"""
     users = models.User.query.all()
@@ -117,14 +111,6 @@ def create_order(created_at: str, completed: bool, user_id: str, store_id: str) 
     db.session.commit()
     return order
 
-"""
-def save_item_picture(filename, filestore):
-    filename = os.path.join(
-        app.config["UPLOAD_FOLDER"],
-        secure_filename(filename)
-    )
-    filestore.save(filename)
-"""
 def save_user_picture(filename, filestore):
     filename = os.path.join(
         app.config["UPLOAD_FOLDER"],

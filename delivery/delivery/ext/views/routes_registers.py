@@ -2,8 +2,9 @@ from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask import current_app as app
 from flask_login import login_required, current_user
 from delivery.ext.auth.form import CategoryForm, ItemsForm, StoresForm, AddressForm, OrderForm, OrderItemsForm
-from delivery.ext.auth.controller import create_category, create_item, create_store, create_address, create_order, save_user_picture, del_category
+from delivery.ext.auth.controller import create_category, create_item, create_store, create_address, create_order, save_user_picture
 from datetime import datetime
+from delivery.ext.db import db
 from delivery.ext.db.models import Category, Store, Items, Address, Order, OrderItems
 
 category = Blueprint("cate", __name__)
@@ -46,11 +47,13 @@ def edit_category():
 
     return render_template('category/edit_category.html')
 
-@category.route('/deletar_categoria')
+@category.route('/deletar_categoria/<id>')
 @login_required
 def delete_category(id):
-    del_category(id)
-    flash('categoria deletada!')
+    category = Category.query.filter_by(id=id).first()
+    db.session.delete(category)
+    db.session.commit()
+    flash('Categoria deletada!', 'success')
     return redirect(url_for('.list_category'))
 
 @category.route('/lista_loja', methods=['GET', 'POST'])
@@ -59,10 +62,14 @@ def list_store():
     stores = Store.query.all()
     return render_template('store/list_store.html', stores=stores)
 
-@category.route('/deletar_loja', methods=['GET', 'POST'])
+@category.route('/deletar_loja/<id>')
 @login_required
-def delete_store():
-    pass
+def delete_store(id):
+    store = Store.query.filter_by(id=id).first()
+    db.session.delete(store)
+    db.session.commit()
+    flash('Estabelecimento deletado!', 'success')
+    return redirect(url_for('.list_store'))
 
 @category.route('/editar_loja', methods=['GET', 'POST'])
 @login_required
@@ -103,10 +110,14 @@ def edit_items():
 
     return render_template('items/edit_items.html')
 
-@category.route('/editar_itens', methods=['GET', 'POST'])
+@category.route('/editar_itens/<id>')
 @login_required
-def delete_items():
-    pass
+def delete_items(id):
+    items = Items.query.filter_by(id=id).first()
+    db.session.delete(items)
+    db.session.commit()
+    flash('Item deletado!', 'success')
+    return redirect(url_for('.list_items'))
 
 @category.route('/items', methods=['GET', 'POST'])
 @login_required
@@ -148,10 +159,14 @@ def edit_address():
 
     return render_template('address/edit_address.html')
 
-@category.route('/deletar_endereço', methods=['GET', 'POST'])
+@category.route('/deletar_endereco/<id>')
 @login_required
-def delete_address():
-    pass
+def delete_address(id):
+    address = Address.query.filter_by(id=id).first()
+    db.session.delete(address)
+    db.session.commit()
+    flash('Endereço deletado!', 'success')
+    return redirect(url_for('.list_address'))
 
 @category.route('/endereço', methods=['GET', 'POST'])
 @login_required
@@ -188,10 +203,14 @@ def edit_order():
 
     return render_template('order/edit_order.html')
 
-@category.route('/deletar_ordem', methods=['GET', 'POST'])
+@category.route('/deletar_ordem/<id>')
 @login_required
-def delete_order():
-    pass
+def delete_order(id):
+    order = Order.query.filter_by(id=id).first()
+    db.session.delete(order)
+    db.session.commit()
+    flash('Ordem deletada!', 'success')
+    return redirect(url_for('.list_order'))
 
 @category.route('/ordem', methods=['GET', 'POST'])
 @login_required

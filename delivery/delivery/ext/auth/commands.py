@@ -1,5 +1,5 @@
 import click
-from delivery.ext.db.models import User, Items
+from delivery.ext.db.models import User, Items, Category
 from delivery.ext.auth.controller import create_user, create_category, create_store, create_item, create_address, create_order
 from delivery.ext.db import db
 from datetime import datetime
@@ -101,3 +101,12 @@ def add_order(created_at, completed, user_id, store_id):
     )
 
     click.echo(f"Endereço {user_id} criado com sucesso!")
+
+@click.option("--id", "--n")
+def del_category(id: int):
+    """ Deletar categoria """
+    category = Category.query.filter_by(id=id).first()
+    db.session.delete(category)
+    db.session.commit()
+
+    click.echo(f'Categoria do ID: {id} deletado com sucesso')

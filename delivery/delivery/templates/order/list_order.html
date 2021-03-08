@@ -30,7 +30,7 @@
             <td>{{order.completed}}</td>
             <td>
                 <a href="{{url_for('cate.edit_order')}}">Editar</a>
-                <a href="{{url_for('cate.delete_order')}}">Deletar</a>
+                <a href="{{url_for('cate.delete_order', id=order.id)}}">Deletar</a>
             </td>
 
         </tr>

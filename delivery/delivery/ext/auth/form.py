@@ -22,17 +22,9 @@ class CategoryForm(FlaskForm):
     name = wtf.StringField("Nome", [wtf.validators.DataRequired()])
     on_menu = wtf.BooleanField("On-menu", default=True)
 
-
-def category_query():
-    return Category.query
-
-def user_query():
-    return User.query
-
 class StoresForm(FlaskForm):
     name_store = wtf.StringField("Nome da Loja", [wtf.validators.DataRequired()])
     category_id = QuerySelectField(query_factory=lambda: Category.query.all(), allow_blank=False, get_label='name')
-    #category_id = wtf.StringField("Categoria", [wtf.validators.DataRequired()])
     active = wtf.BooleanField("Ativo", default=True)
 
 class ItemsForm(FlaskForm):

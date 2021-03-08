@@ -1,6 +1,6 @@
 from delivery.ext.db import models #noqa
-from delivery.ext.auth.commands import add_user, add_category, add_store, add_item, add_address, add_order
-from delivery.ext.auth.controller import list_users, list_categorys, list_stores, list_itens, list_address, list_order, del_category
+from delivery.ext.auth.commands import add_user, add_category, add_store, add_item, add_address, add_order, del_category
+from delivery.ext.auth.controller import list_users, list_categorys, list_stores, list_itens, list_address, list_order
 
 from delivery.ext.db import db
 from delivery.ext.auth.admin import UserAdmin
