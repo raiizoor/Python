@@ -1,3 +1,69 @@
-<html>
-    <h1>B</h1>
-</html>
+{% extends "index.html" %}
+
+{% block top %}
+
+
+<section class="hero is-primary">
+    <div class="hero-body">
+        <div class="container">
+            <h1>Cadastro de Estabelecimento<h1>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block main %}
+<form action='{{url_for("cate.edit_store", id=store.id)}}' method='post' enctype='multipart/form-data'>
+    <div class="col-md-3 col-md-offset-4">
+
+        {{form.csrf_token}}
+
+        <div class="form-group">
+            <label>Selecione uma Categoria</label>
+            {{form.category_id(class="form-control")}}
+        </div>
+
+        <div class="form-group">
+            <label>Nome do Estabelecimento</label>
+            {{ form.name_store(class="form-control", placeholder="Nome do Estabelecimento") }}
+            {% if form.errors.name %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in form.errors.name %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <label>Email do usuário</label>
+            {{form.user_id(class="form-control")}}
+        </div>
+
+        <div class="form-group">
+            <label>Ativo </label>
+            {{ form.active(class="checkbox", type="checkbox") }}
+            {% if form.errors.available %}
+            <div class="alert alert-danger" role="alert">
+                <ul>
+                    {% for e in form.errors.available %}
+                    <li>{{ e }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endif %}
+        </div>
+
+        <div class="form-group">
+            <input class="button is-link" type="submit" value="Cadastrar">
+        </div>
+
+
+    </div>
+</form>
+<div class="col-md-3 col-md-offset-4">
+    <button class="button is-link is-light"><a href="{{ url_for('cate.list_store')}}">Voltar</a></button>
+</div>
+{% endblock %}
