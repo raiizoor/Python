@@ -111,6 +111,16 @@ def create_order(created_at: str, completed: bool, user_id: str, store_id: str) 
     db.session.commit()
     return order
 
+def list_image(id):
+    for name_image in os.listdir(app.config["UPLOAD_FOLDER"]):
+        if f'image{id}' in name_image:
+            return name_image
+
+def delete_image(id):
+    arquivo = list_image(id)
+    os.remove(os.path.join(app.config['UPLOAD_FOLDER'], arquivo))
+
+
 def save_user_picture(filename, filestore):
     filename = os.path.join(
         app.config["UPLOAD_FOLDER"],

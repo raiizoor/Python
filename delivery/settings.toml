@@ -7,9 +7,10 @@ EXTENSIONS = [
     "delivery.ext.admin:init_app",
     "delivery.ext.migrate:init_app",
     "delivery.ext.cli:init_app",
-    "delivery.ext.views:init_app",  
+    "delivery.ext.views:init_app",
 ]
 UPLOAD_FOLDER = "uploads"
+UPLOAD_FOLDER_SEARCH = "../uploads"
 
 
 

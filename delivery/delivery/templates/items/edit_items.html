@@ -14,89 +14,99 @@
 
 {% block main %}
 <form action='{{url_for("cate.edit_items", id=items.id)}}' method='post' enctype='multipart/form-data'>
-    <div class="col-md-3 col-md-offset-4">
+    <div class="columns is-multiline is-mobile">
+        <div class="column is-one-quarter">
 
-        {{form.csrf_token}}
 
-        <div class="form-group">
-            <label>Selecione uma loja</label>
-            {{form.store_id(class="form-control")}}
-        </div>
+            {{form.csrf_token}}
 
-        <div class="form-group">
-            <label>Nome do menu</label>
-            {{ form.name(class="form-control", placeholder="Nome do menu") }}
-            {% if form.errors.name %}
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    {% for e in form.errors.name %}
-                    <li>{{ e }}</li>
-                    {% endfor %}
-                </ul>
+            <div class="form-group">
+                <label>Selecione uma loja</label>
+                {{form.store_id(class="form-control")}}
             </div>
-            {% endif %}
-        </div>
 
-        <div class="form-group">
-            <label class="label">Imagem</label>
-            <figure class="thumb col-md-4">
-                <figcaption>
-                    <label class="fileContainer">
-                        {{form.image(class="btn btn-link")}}
-                    </label>
-                </figcaption>
-            </figure>
-        </div>
-
-        <div class="form-group">
-            <label>Valor</label>
-            <div class="field has-addons">
-                <p class="control">
-                    <span class="select">
-                        <select>
-                            <option>R$</option>
-                            <option>$</option>
-                        </select>
-                    </span>
-                </p>
-                <p class="control is-expanded">
-                    {{ form.price(class="input", type="number", placeholder="Valor") }}
-                    {% if form.errors.price %}
+            <div class="form-group">
+                <label>Nome do menu</label>
+                {{ form.name(class="form-control", placeholder="Nome do menu") }}
+                {% if form.errors.name %}
                 <div class="alert alert-danger" role="alert">
                     <ul>
-                        {% for e in form.errors.price %}
+                        {% for e in form.errors.name %}
                         <li>{{ e }}</li>
                         {% endfor %}
                     </ul>
                 </div>
                 {% endif %}
-                </p>
             </div>
-        </div>
 
-        <div class="form-group">
-            <label>Disponível </label>
-            {{ form.available(class="checkbox", type="checkbox") }}
-            {% if form.errors.available %}
-            <div class="alert alert-danger" role="alert">
-                <ul>
-                    {% for e in form.errors.available %}
-                    <li>{{ e }}</li>
-                    {% endfor %}
-                </ul>
+
+
+            <div class="form-group">
+                <label>Valor</label>
+                <div class="field has-addons">
+                    <p class="control">
+                        <span class="select">
+                            <select>
+                                <option>R$</option>
+                                <option>$</option>
+                            </select>
+                        </span>
+                    </p>
+                    <p class="control is-expanded">
+                        {{ form.price(class="input", type="number", placeholder="Valor") }}
+                        {% if form.errors.price %}
+                    <div class="alert alert-danger" role="alert">
+                        <ul>
+                            {% for e in form.errors.price %}
+                            <li>{{ e }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    {% endif %}
+                    </p>
+                </div>
             </div>
-            {% endif %}
-        </div>
+
+            <div class="form-group">
+                <label>Disponível </label>
+                {{ form.available(class="checkbox", type="checkbox") }}
+                {% if form.errors.available %}
+                <div class="alert alert-danger" role="alert">
+                    <ul>
+                        {% for e in form.errors.available %}
+                        <li>{{ e }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
 
 
-        <div class="form-group">
-            <input class="button is-link" type="submit" value="Cadastrar">
-        </div>
+            <div class="form-group">
+                <input class="button is-link" type="submit" value="Cadastrar">
+            </div>
 
 
-    </div>
+
 </form>
-<div class="col-md-3 col-md-offset-4">
-    <button class="button is-link is-light"><a href="{{ url_for('cate.list_items')}}">Voltar</a></button>
+
+<button class="button is-link is-light"><a href="{{ url_for('cate.list_items')}}">Voltar</a></button>
+
+</div>
+
+<div class="column is-one-quarter">
+    <div class="form-group">
+        <figure class="thumb col-md-9">
+            <img class="img-responsive" src="{{url_for('cate.uploaded_file', filename=capa_item)}}">
+            <figcaption>
+                <label class="fileContainer">
+                    Escolha uma imagem!
+                    {{form.image(class="btn btn-link")}}
+                </label>
+            </figcaption>
+        </figure>
+    </div>
+</div>
+
 </div>
 {% endblock %}
