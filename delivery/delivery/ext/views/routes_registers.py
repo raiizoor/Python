@@ -20,9 +20,9 @@ def page():
     return render_template('login.html')
 
 
-@category.route('/uploads/<filename>')
+@category.route('/upload/<filename>')
 def uploaded_file(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER_SEARCH'], filename)
+    return send_from_directory(app.config['UPLOAD_FOLDER_SEARCH2'], filename)
 
 
 @category.route('/lista_categoria', methods=['GET', 'POST'])
@@ -189,7 +189,7 @@ def edit_items(id):
             upload_folder = os.path.join(app.config["UPLOAD_FOLDER"])
             secure_filename(upload_folder)
             delete_image(id)
-            image.save(f'{upload_folder}/image{items.id}.jpg')
+            image.save(f'{upload_folder}/{items.id}')
             db.session.add(items)
             db.session.commit()
             flash('Item editado com sucesso', 'success')
@@ -233,7 +233,7 @@ def register_items():
             image = request.files['image']
             upload_folder = os.path.join(app.config["UPLOAD_FOLDER"])
             secure_filename(upload_folder)
-            image.save(f'{upload_folder}/image{items.id}.jpg')
+            image.save(f'{upload_folder}/{items.id}')
 
             flash('Item registrado com sucesso!', 'success')
             return redirect(url_for('.register_items'))
